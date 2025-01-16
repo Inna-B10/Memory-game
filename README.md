@@ -1,4 +1,19 @@
-# React + TypeScript + Vite
+# Project name: Memory game
+
+Goal: Create an accessible, interactive memory game using React.
+
+[.excalidraw file](https://excalidraw.com/#json=i21ihR3Yl8TPPc1Jd8zbC,z-mryb_UQNcKVFDI4R_n_w)
+
+### used:
+
+React + Vite + TypeScript
+
+```
+npm install gh-pages --save-dev
+npm i -D @trivago/prettier-plugin-sort-imports prettier
+```
+
+<!-- # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -47,4 +62,4 @@ export default tseslint.config({
     ...react.configs['jsx-runtime'].rules,
   },
 })
-```
+``` -->
