@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { CARDS_PATH } from './constants'
 
 /* -------------------------- Fisher-Yates Shuffle -------------------------- */
 function shuffleArray(array) {
@@ -20,7 +19,8 @@ function getGridClass(length) {
 /* -------------------------------- GetImages ------------------------------- */
 //[!] count can be 6-easy level, 8-middle, 10-hard, 15-expert
 async function getImages(count) {
-	const images = Object.keys(import.meta.glob('./assets/cards/*.{png,jpeg,jpg,svg}'))
+	const images = Object.keys(import.meta.glob('/src/assets/cards/*.{png,jpeg,jpg,svg}'))
+	console.log(images)
 
 	let shuffledPaths = shuffleArray(images)
 	if (count < images.length) {
@@ -33,11 +33,12 @@ async function getImages(count) {
 
 		//creating pair of cards: the same file, but with unique id for each card in pair
 		return [
-			{ id: `${id}-n1`, name: filename }, //add name-n1 as id and full filename for each copy
-			{ id: `${id}-n2`, name: filename }
+			{ id: `${id}-n1`, name: filename, path: item }, //add name-n1 as id and full filename for each copy
+			{ id: `${id}-n2`, name: filename, path: item }
 		]
 	})
 	pairsArray = shuffleArray(pairsArray) //shuffle new array with card pairs
+	console.log(pairsArray)
 	return pairsArray
 }
 
@@ -94,7 +95,7 @@ function App() {
 				{cards.map(card => (
 					<img
 						key={card.id}
-						src={`${CARDS_PATH}/${card.name}`}
+						src={card.path}
 						// width='auto'
 						alt=''
 					/>
