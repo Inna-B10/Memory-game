@@ -1,4 +1,15 @@
-#root {
+.card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 2em;
+
+  > img {
+    -webkit-user-drag: none;
+  }
+}
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -33,10 +44,8 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
+
 
 .read-the-docs {
   color: #888;
-}
+} */
