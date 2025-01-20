@@ -19,7 +19,7 @@ function getGridClass(length) {
 
 /* -------------------------------- GetImages ------------------------------- */
 //[!] count can be 6-easy level, 8-middle, 10-hard, 15-expert
-const getImages = async (count = 15) => {
+async function getImages(count) {
 	const images = Object.keys(import.meta.glob('./assets/cards/*.{png,jpeg,jpg,svg}'))
 
 	let shuffledPaths = shuffleArray(images)
@@ -46,20 +46,49 @@ function App() {
 	// const images = ['🍎', '🍌', '🍇', '🍓', '🍍', '🍉']
 
 	const [cards, setCards] = useState([])
+	const [count, setCount] = useState()
 
 	useEffect(() => {
-		const fetchImages = async () => {
-			const images = await getImages()
-			setCards(images)
+		if (count > 0) {
+			const fetchImages = async () => {
+				const images = await getImages(count)
+				setCards(images)
+			}
+			fetchImages()
 		}
-		fetchImages()
-	}, [])
+	}, [count])
 
 	return (
 		<>
 			{/* <button onClick={() => setCount(count => count + 1)}>
 				count is {count}
 			</button> */}
+			<div className='level-buttons'>
+				<button
+					value={6}
+					onClick={e => setCount(e.target.value)}
+				>
+					easy
+				</button>
+				<button
+					value={8}
+					onClick={e => setCount(e.target.value)}
+				>
+					middle
+				</button>
+				<button
+					value={10}
+					onClick={e => setCount(e.target.value)}
+				>
+					hard
+				</button>
+				<button
+					value={15}
+					onClick={e => setCount(e.target.value)}
+				>
+					expert
+				</button>
+			</div>
 
 			<div className={`grid ${getGridClass(cards.length)}`}>
 				{cards.map(card => (

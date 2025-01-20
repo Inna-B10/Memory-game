@@ -24,3 +24,8 @@
 .grid-col-5 {
   grid-template-columns: repeat(5, 1fr);
 }
+
+.level-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
