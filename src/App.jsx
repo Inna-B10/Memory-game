@@ -1,38 +1,50 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { APP_URL, CARDS_PATH } from './constants'
+import { CARDS_PATH } from './constants'
 
-const imgPath = CARDS_PATH
-// let fullArray = []
-const getImages = async (count = 4) => {
+/* -------------------------- Fisher-Yates Shuffle -------------------------- */
+function shuffleArray(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1)) //random index from 0 to i
+		array[i] = [array[j], (array[j] = array[i])][0] //swapping elements
+	}
+	return array
+}
+
+/* ------------------------------- Grid Column ------------------------------ */
+function getGridClass(length) {
+	if (length >= 20) return 'grid-col-5'
+	return 'grid-col-4'
+}
+
+/* -------------------------------- GetImages ------------------------------- */
+//[!] count can be 6-easy level, 8-middle, 10-hard, 15-expert
+const getImages = async (count = 15) => {
 	const images = Object.keys(import.meta.glob('./assets/cards/*.{png,jpeg,jpg,svg}'))
-	console.log(images)
-	const imagesPaths = Object.entries(images)
-	console.log(imagesPaths)
-	const shuffledPaths = imagesPaths.sort(() => Math.random() - 0.5)
-	const selectedPaths = shuffledPaths.slice(0, count)
 
-	// const loadedImages = selectedPaths.map(path => path[0])
+	let shuffledPaths = shuffleArray(images)
+	if (count < images.length) {
+		shuffledPaths = shuffledPaths.slice(0, count)
+	}
 
-	// console.log(selectedPaths)
-	// console.log(loadedImages)
-	let fullArray = selectedPaths.flatMap(item => {
-		const filename = item[0].split('/').pop() //get the file name
-		const id = filename.split('.')[0] //extract the identifier before the extension
+	let pairsArray = shuffledPaths.flatMap(item => {
+		const filename = item.split('/').pop() //get full filename
+		const id = filename.split('.')[0] //extract name without extension
+
+		//creating pair of cards: the same file, but with unique id for each card in pair
 		return [
-			{ id: `${id}-n1`, path: item[0] }, //add a path for each copy
-			{ id: `${id}-n2`, path: item[0] }
+			{ id: `${id}-n1`, name: filename }, //add name-n1 as id and full filename for each copy
+			{ id: `${id}-n2`, name: filename }
 		]
 	})
-
-	console.log(fullArray)
-	fullArray = fullArray.sort(() => Math.random() - 0.5)
-	console.log(fullArray)
-	// console.log(loadedImages)
-	return fullArray
+	pairsArray = shuffleArray(pairsArray) //shuffle new array with card pairs
+	return pairsArray
 }
 
 function App() {
+	// const [count, setCount] = useState(0)
+	// const images = ['🍎', '🍌', '🍇', '🍓', '🍍', '🍉']
+
 	const [cards, setCards] = useState([])
 
 	useEffect(() => {
@@ -45,12 +57,16 @@ function App() {
 
 	return (
 		<>
-			<div className='card'>
+			{/* <button onClick={() => setCount(count => count + 1)}>
+				count is {count}
+			</button> */}
+
+			<div className={`grid ${getGridClass(cards.length)}`}>
 				{cards.map(card => (
 					<img
 						key={card.id}
-						src={`${APP_URL}/src/${card.path}`}
-						width={200}
+						src={`${CARDS_PATH}/${card.name}`}
+						// width='auto'
 						alt=''
 					/>
 				))}
