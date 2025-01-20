@@ -19,7 +19,9 @@ function getGridClass(length) {
 /* -------------------------------- GetImages ------------------------------- */
 //[!] count can be 6-easy level, 8-middle, 10-hard, 15-expert
 async function getImages(count) {
-	const images = Object.keys(import.meta.glob('/public/cards/*.{png,jpeg,jpg,svg}'))
+	const images = Object.keys(import.meta.glob('/public/cards/*.{png,jpeg,jpg,svg}')).map(path =>
+		path.replace('/public', '')
+	)
 	console.log(images)
 
 	let shuffledPaths = shuffleArray(images)
