@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './GamePage.module.css'
+import styles from './GamePage.module.css'
 
 /* -------------------------- Fisher-Yates Shuffle -------------------------- */
 function shuffleArray(array) {
@@ -12,8 +12,8 @@ function shuffleArray(array) {
 
 /* ------------------------------- Grid Column ------------------------------ */
 function getGridClass(length) {
-	if (length >= 20) return 'grid-col-5'
-	return 'grid-col-4'
+	if (length >= 20) return 'grid_col_5'
+	return 'grid_col_4'
 }
 
 /* -------------------------------- GetImages ------------------------------- */
@@ -47,6 +47,8 @@ async function getImages(count) {
 export function GamePage() {
 	const [cards, setCards] = useState([])
 	const [count, setCount] = useState()
+	const [selectedCards, setSelectedCards] = useState([])
+	const [matchedCards, setMatchedCards] = useState([])
 
 	useEffect(() => {
 		if (count > 0) {
@@ -58,9 +60,40 @@ export function GamePage() {
 		}
 	}, [count])
 
+	useEffect(() => {
+		if (selectedCards.length > 0) {
+			console.log('selected: ', selectedCards)
+		}
+	}, [selectedCards])
+
+	useEffect(() => {
+		if (matchedCards.length > 0) {
+			console.log('matched: ', matchedCards)
+		}
+	}, [matchedCards])
+
+	function handleClick(card) {
+		//if already in selectedCards -> return
+		if (selectedCards.find(item => item.id === card.id) || matchedCards.includes(card.name)) return
+
+		if (selectedCards.length === 2 || selectedCards.length === 0) {
+			setSelectedCards([{ id: card.id, name: card.name }])
+		} else {
+			if (selectedCards[0].name === card.name) {
+				setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name])
+				setSelectedCards([])
+			} else {
+				setSelectedCards(prevSelectedCards => [
+					...prevSelectedCards,
+					{ id: card.id, name: card.name }
+				])
+			}
+		}
+	}
+
 	return (
 		<>
-			<div className='level-buttons'>
+			<div className={styles.levelButtons}>
 				<button
 					value={6}
 					onClick={e => setCount(e.target.value)}
@@ -87,13 +120,14 @@ export function GamePage() {
 				</button>
 			</div>
 
-			<div className={`grid ${getGridClass(cards.length)}`}>
+			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>
 				{cards.map(card => (
 					<img
 						key={card.id}
 						src={card.path}
-						// width='auto'
+						name={card.name}
 						alt=''
+						onClick={() => handleClick(card)}
 					/>
 				))}
 			</div>

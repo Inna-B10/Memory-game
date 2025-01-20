@@ -16,17 +16,17 @@
   object-fit: cover;
 }
 
-.grid-col-4 {
+.grid_col_4 {
   gap: 1rem;
   grid-template-columns: repeat(4, 1fr);
 }
 
-.grid-col-5 {
+.grid_col_5 {
   gap: 0.5rem;
   grid-template-columns: repeat(5, 1fr);
 }
 
-.level-buttons {
+.levelButtons {
   display: flex;
   justify-content: space-evenly;
 }
