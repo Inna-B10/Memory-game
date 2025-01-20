@@ -1,0 +1,15 @@
+.card {
+  cursor: pointer;
+}
+
+.matchedCards {
+
+  cursor: none;
+  border: 2px solid red;
+}
+
+.selectedCards {
+
+  cursor: unset;
+  border: 2px solid green;
+}
