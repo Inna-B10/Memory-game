@@ -1,7 +1,12 @@
-Project name: Memory game Goal: Create an accessible, interactive memory game using React.
+# Project name: Memory game
 
-.excalidraw file
+Goal: Create an accessible, interactive memory game using React.
 
-used: React + Vite
+[.excalidraw file](https://excalidraw.com/#json=seGnWcEkSaSagb-xW-J9z,HNDEUp9TuGE7nDUkuVs2yA)
 
-npm install gh-pages --save-dev npm i -D @trivago/prettier-plugin-sort-imports prettier
+### used: React + Vite
+
+```
+npm install gh-pages --save-dev npm i -D @trivago/prettier-plugin-sort-imports prettier npm install
+react-router-dom
+```

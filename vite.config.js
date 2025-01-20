@@ -6,14 +6,3 @@ export default defineConfig({
 	plugins: [react()]
 	// base: '/Memory-game'
 })
-
-// export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
-// 	if (command === 'serve') {
-// 		return { base: './', plugins: [react()] }
-// 	} else {
-// 		return {
-// 			plugins: [react()],
-// 			base: '',
-// 		}
-// 	}
-// })
