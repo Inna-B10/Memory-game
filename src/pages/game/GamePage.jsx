@@ -21,7 +21,8 @@ export function GamePage() {
 	useEffect(() => {
 		async function fetchImages() {
 			setLoading(true)
-			const images = await GetImages(countCards)
+			// const images = await GetImages(countCards)
+			const images = await GetImages(6)
 			setCards(images)
 			setLoading(false)
 		}
@@ -31,7 +32,7 @@ export function GamePage() {
 	/* ---------------------- Checking For Game Completion ---------------------- */
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
-			console.log('finish')
+			alert('finish')
 		}
 	}, [matchedCards, cards])
 
@@ -54,7 +55,10 @@ export function GamePage() {
 			else {
 				//if cards do match
 				if (selectedCards[0].name === card.name) {
-					setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name])
+					setTimeout(
+						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
+						1500
+					)
 				}
 				// if cards do not match
 				setSelectedCards(prevSelectedCards => [
