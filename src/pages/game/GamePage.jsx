@@ -21,8 +21,7 @@ export function GamePage() {
 	useEffect(() => {
 		async function fetchImages() {
 			setLoading(true)
-			// const images = await GetImages(countCards)
-			const images = await GetImages(6)
+			const images = await GetImages(countCards)
 			setCards(images)
 			setLoading(false)
 		}

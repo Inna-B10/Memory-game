@@ -1,33 +1,31 @@
 import { useEffect, useState } from 'react'
-import { UserData } from '../components/UserData.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useUser } from '../UserContext.jsx'
+import { UserButton } from '../components/UserButton.jsx'
 import styles from './HomePage.module.css'
 
 export function HomePage() {
-	// if (localStorage.memoryGame) {
-	// 	console.log(gameData.length)
-	// 	console.log(gameData)
-	// } else {
-	// 	localStorage.setItem('memoryGame', JSON.stringify([{ id: 1, name: 'user1', icon: '🍉' }]))
-	// 	console.log('new')
-	// }
-	//
-	// 	const gameData = JSON.parse(localStorage.getItem('memoryGame'))
-	// 	console.log(gameData ? 'yes' : 'no')
-
 	const [newName, setNewName] = useState('')
-	const [newAvatar, setNewAvatar] = useState('🍉')
-	const [gameData, setGameData] = useState([])
+	const [newAvatar, setNewAvatar] = useState('?')
+	const [fullData, setFullData] = useState([])
 
+	const navigate = useNavigate()
+	const { setUserData } = useUser()
+	function handleUserSelect(user) {
+		setUserData(user) // save user's data in context
+		navigate('/user') //go to userPage
+	}
+
+	useEffect(() => {
+		const storedFullData = JSON.parse(localStorage.getItem('memoryGame')) || []
+		setFullData(storedFullData)
+	}, [])
+
+	/* -------------------------------- New User -------------------------------- */
 	const handleKeyDown = e => {
 		if (e.key !== 'Enter') return
 		createNewUser()
 	}
-
-	useEffect(() => {
-		const storedGameData = JSON.parse(localStorage.getItem('memoryGame')) || []
-		setGameData(storedGameData)
-	}, [])
-
 	function createNewUser() {
 		if (newName.trim() === '') {
 			alert('Please enter your name!')
@@ -35,8 +33,8 @@ export function HomePage() {
 		}
 
 		const newUser = {
-			id: gameData.length + 1,
-			userName: newName,
+			id: fullData.length + 1,
+			userName: newName.trim(),
 			icon: newAvatar,
 			totalGames: 0,
 			results: {
@@ -46,9 +44,9 @@ export function HomePage() {
 				expert: { score: 0, count: 0 }
 			}
 		}
-		const updatedGameData = [...gameData, newUser]
-		setGameData(updatedGameData)
-		localStorage.setItem('memoryGame', JSON.stringify(updatedGameData))
+		const updatedFullData = [...fullData, newUser]
+		setFullData(updatedFullData)
+		localStorage.setItem('memoryGame', JSON.stringify(updatedFullData))
 
 		//Clear input field
 		setNewName('')
@@ -57,14 +55,15 @@ export function HomePage() {
 	return (
 		<>
 			<h2>HomePage</h2>
-			{gameData && (
+			{fullData.length > 0 && (
 				<>
-					<p>Exist users:</p>
+					<p>Existing users:</p>
 					<div className={styles.existUsers}>
-						{gameData.map(user => (
-							<UserData
+						{fullData.map(user => (
+							<UserButton
 								user={user}
 								key={user.id}
+								onSelect={handleUserSelect}
 							/>
 						))}
 					</div>

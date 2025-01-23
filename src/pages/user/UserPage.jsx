@@ -1,43 +1,42 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useUser } from '../../UserContext.jsx'
+import { levels } from '../../constants.js'
 
 export function UserPage() {
+	const { userData } = useUser()
+	const navigate = useNavigate()
+
+	/* ---------------------------- If User Undefined --------------------------- */
+	useEffect(() => {
+		if (!userData) {
+			navigate('/')
+		}
+	}, [userData, navigate])
+
+	console.log(userData)
+
+	// Render fallback if userData is not loaded
+	if (!userData) return <div>Loading...</div>
+
 	return (
 		<>
-			<div>UserPage</div>
-
-			{/* <div className={styles.levelButtons}>
-				<button value={6} onClick={e => setCount(e.target.value)}>
-					easy
-				</button>
-				<button value={8} onClick={e => setCount(e.target.value)}>
-					middle
-				</button>
-				<button value={10} onClick={e => setCount(e.target.value)}>
-					hard
-				</button>
-				<button value={15} onClick={e => setCount(e.target.value)}>
-					expert
-				</button>
-			</div> */}
-
-			<div className='levelButtons'>
-				<button>
+			{/* -------------------------------- User Info ------------------------------- */}
+			<div>
+				{userData.icon} {userData.userName}
+			</div>
+			{/* ----------------------------- Level Selection ---------------------------- */}
+			<div>
+				{levels.map((level, index) => (
 					<Link
+						key={index}
 						to='/game'
-						state={{ countCards: 6 }}
+						state={{ countCards: level.countCards }}
+						className='level-button'
 					>
-						easy
+						{level.level}
 					</Link>
-				</button>
-				{/* <button value={8} onClick={e => setCount(e.target.value)}>
-					middle
-				</button>
-				<button value={10} onClick={e => setCount(e.target.value)}>
-					hard
-				</button>
-				<button value={15} onClick={e => setCount(e.target.value)}>
-					expert
-				</button> */}
+				))}
 			</div>
 		</>
 	)
