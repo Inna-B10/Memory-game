@@ -7,6 +7,8 @@ Goal: Create an accessible, interactive memory game using React.
 ### used: React + Vite
 
 ```
-npm install gh-pages --save-dev npm i -D @trivago/prettier-plugin-sort-imports prettier npm install
-react-router-dom
+@trivago/prettier-plugin-sort-imports prettier
+npm install react-router-dom
+npm i clsx
+npm install framer-motion
 ```
