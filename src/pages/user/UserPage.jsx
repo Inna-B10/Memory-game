@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../UserContext.jsx'
 import { levels } from '../../constants.js'
 
@@ -28,14 +28,22 @@ export function UserPage() {
 			{/* ----------------------------- Level Selection ---------------------------- */}
 			<div>
 				{levels.map((level, index) => (
-					<Link
+					// <Link
+					// 	key={index}
+					// 	to='/game'
+					// 	state={{ countCards: level.countCards }}
+					// 	className='level-button'
+					// >
+					// 	{level.level}
+					// </Link>
+
+					<button
 						key={index}
-						to='/game'
-						state={{ countCards: level.countCards }}
+						onClick={() => navigate('/game', { state: { countCards: level.countCards } })}
 						className='level-button'
 					>
 						{level.level}
-					</Link>
+					</button>
 				))}
 			</div>
 		</>

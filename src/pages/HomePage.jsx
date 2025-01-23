@@ -6,7 +6,7 @@ import styles from './HomePage.module.css'
 
 export function HomePage() {
 	const [newName, setNewName] = useState('')
-	const [newAvatar, setNewAvatar] = useState('?')
+	const [newAvatar, setNewAvatar] = useState('🍎')
 	const [fullData, setFullData] = useState([])
 
 	const navigate = useNavigate()
@@ -28,7 +28,15 @@ export function HomePage() {
 	}
 	function createNewUser() {
 		if (newName.trim() === '') {
+			//[TODO] modal message
 			alert('Please enter your name!')
+			return
+		}
+		//check if userName already exits
+		//[TODO] modul message
+		const isNameTaken = fullData.some(user => user.userName === newName.trim())
+		if (isNameTaken) {
+			alert('This name is already taken! Please choose another.')
 			return
 		}
 
@@ -48,12 +56,12 @@ export function HomePage() {
 		setFullData(updatedFullData)
 		localStorage.setItem('memoryGame', JSON.stringify(updatedFullData))
 
-		//Clear input field
-		setNewName('')
+		setNewName('') //Clear input field
+		setNewAvatar('🍎') // Reset avatar selection
 	}
 
 	return (
-		<>
+		<div className={styles.homePage}>
 			<h2>HomePage</h2>
 			{fullData.length > 0 && (
 				<>
@@ -61,63 +69,49 @@ export function HomePage() {
 					<div className={styles.existUsers}>
 						{fullData.map(user => (
 							<UserButton
-								user={user}
 								key={user.id}
+								user={user}
 								onSelect={handleUserSelect}
 							/>
 						))}
 					</div>
 				</>
 			)}
-			<label>Create new player</label>
-			<input
-				type='text'
-				placeholder='your name'
-				name='name'
-				maxLength={30}
-				value={newName}
-				onChange={e => {
-					setNewName(e.target.value)
-				}}
-				onKeyDown={handleKeyDown}
-			/>
-			<p>Choose your avatar</p>
-			<button
-				type='button'
-				value='🍎'
-				onClick={e => setNewAvatar(e.target.value)}
-			>
-				🍎
-			</button>
-			<button
-				type='button'
-				value='🍇'
-				onClick={e => setNewAvatar(e.target.value)}
-			>
-				🍇
-			</button>
-			<button
-				type='button'
-				value='🍓'
-				onClick={e => setNewAvatar(e.target.value)}
-			>
-				🍓
-			</button>
-			<button
-				type='button'
-				value='🍍'
-				onClick={e => setNewAvatar(e.target.value)}
-			>
-				🍍
-			</button>
-			<button
-				type='button'
-				value='🍉'
-				onClick={e => setNewAvatar(e.target.value)}
-			>
-				🍉
-			</button>
-			<button onClick={createNewUser}>create</button>
-		</>
+			<div className={styles.createUser}>
+				<label>Create new player:</label>
+				<input
+					type='text'
+					placeholder='your name'
+					name='name'
+					maxLength={30}
+					value={newName}
+					onChange={e => {
+						setNewName(e.target.value)
+					}}
+					onKeyDown={handleKeyDown}
+				/>
+				<p>Choose your avatar:</p>
+				<div className={styles.avatarSelector}>
+					{['🍎', '🍇', '🍓', '🍍', '🍉'].map(emoji => (
+						<button
+							key={emoji}
+							type='button'
+							value={emoji}
+							className={`${styles.avatarButton} ${newAvatar === emoji ? styles.selected : ''}`}
+							onClick={e => setNewAvatar(e.target.value)}
+						>
+							{emoji}
+						</button>
+					))}
+				</div>
+
+				<button
+					onClick={createNewUser}
+					className={styles.createButton}
+				>
+					Create
+				</button>
+			</div>
+		</div>
 	)
 }

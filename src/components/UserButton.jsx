@@ -6,8 +6,8 @@ export function UserButton({ user, onSelect }) {
 			className={styles.userCard}
 			onClick={() => onSelect(user)}
 		>
-			<div>{user.userName}</div>
-			<div>{user.icon}</div>
+			<div className={styles.userName}>{user.userName}</div>
+			<div className={styles.userAvatar}>{user.icon}</div>
 		</button>
 	)
 }
