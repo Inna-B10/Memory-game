@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useAtom } from 'jotai'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../UserContext.jsx'
 import { UserButton } from '../components/UserButton.jsx'
+import { fullGameData, storedUser } from '../store.jsx'
 import styles from './HomePage.module.css'
 
 export function HomePage() {
 	const [newName, setNewName] = useState('')
 	const [newAvatar, setNewAvatar] = useState('🍎')
-	const [fullData, setFullData] = useState([])
+
+	const [data, setData] = useAtom(fullGameData)
+	console.log(data)
+	const [currentUser, setCurrentUser] = useAtom(storedUser)
 
 	const navigate = useNavigate()
-	const { setUserData } = useUser()
+
+	/* ------------------------------- Select User ------------------------------ */
 	function handleUserSelect(user) {
-		setUserData(user) // save user's data in context
 		localStorage.setItem('currentUserMG', JSON.stringify(user))
+		setCurrentUser(user)
 		navigate('/user') //go to userPage
 	}
-
-	useEffect(() => {
-		const storedFullData = JSON.parse(localStorage.getItem('memoryGame')) || []
-		setFullData(storedFullData)
-	}, [])
 
 	/* -------------------------------- New User -------------------------------- */
 	const handleKeyDown = e => {
@@ -35,14 +35,13 @@ export function HomePage() {
 		}
 		//check if userName already exits
 		//[TODO] modul message
-		const isNameTaken = fullData.some(user => user.userName === newName.trim())
+		const isNameTaken = data.some(user => user.userName === newName.trim())
 		if (isNameTaken) {
 			alert('This name is already taken! Please choose another.')
 			return
 		}
 
 		const newUser = {
-			id: fullData.length + 1,
 			userName: newName.trim(),
 			icon: newAvatar,
 			totalGames: 0,
@@ -53,8 +52,8 @@ export function HomePage() {
 				expert: { score: 0, count: 0 }
 			}
 		}
-		const updatedFullData = [...fullData, newUser]
-		setFullData(updatedFullData)
+		const updatedFullData = [...data, newUser]
+		setData(updatedFullData)
 		localStorage.setItem('memoryGame', JSON.stringify(updatedFullData))
 
 		setNewName('') //Clear input field
@@ -64,13 +63,13 @@ export function HomePage() {
 	return (
 		<div className={styles.homePage}>
 			<h2>HomePage</h2>
-			{fullData.length > 0 && (
+			{data.length > 0 && (
 				<>
-					<p>Existing users:</p>
-					<div className={styles.existUsers}>
-						{fullData.map(user => (
+					<p>Choose you profile:</p>
+					<div className={styles.avatarSelector}>
+						{data.map(user => (
 							<UserButton
-								key={user.id}
+								key={user.userName}
 								user={user}
 								onSelect={handleUserSelect}
 							/>

@@ -3,13 +3,13 @@
   padding: 20px;
 }
 
-.existUsers {
+/* .existUsers {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .createUser {
   margin-top: 20px;

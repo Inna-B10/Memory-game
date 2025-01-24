@@ -11,4 +11,5 @@ Goal: Create an accessible, interactive memory game using React.
 npm install react-router-dom
 npm i clsx
 npm install framer-motion
+npm install jotai
 ```
