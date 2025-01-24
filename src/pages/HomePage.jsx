@@ -13,6 +13,7 @@ export function HomePage() {
 	const { setUserData } = useUser()
 	function handleUserSelect(user) {
 		setUserData(user) // save user's data in context
+		localStorage.setItem('currentUserMG', JSON.stringify(user))
 		navigate('/user') //go to userPage
 	}
 

@@ -1,18 +1,23 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useUser } from '../../UserContext.jsx'
 import { levels } from '../../constants.js'
 
 export function UserPage() {
-	const { userData } = useUser()
+	const { userData, setUserData } = useUser()
 	const navigate = useNavigate()
 
 	/* ---------------------------- If User Undefined --------------------------- */
 	useEffect(() => {
 		if (!userData) {
-			navigate('/')
+			const storedUser = localStorage.getItem('currentUserMG')
+			if (storedUser) {
+				setUserData(JSON.parse(storedUser))
+			} else {
+				navigate('/')
+			}
 		}
-	}, [userData, navigate])
+	}, [userData, navigate, setUserData])
 
 	console.log(userData)
 
@@ -23,7 +28,14 @@ export function UserPage() {
 		<>
 			{/* -------------------------------- User Info ------------------------------- */}
 			<div>
-				{userData.icon} {userData.userName}
+				<Link
+					to={'/'}
+					className='level-button'
+				>
+					Change user
+				</Link>
+				{userData.icon}
+				{userData.userName}
 			</div>
 			{/* ----------------------------- Level Selection ---------------------------- */}
 			<div>
