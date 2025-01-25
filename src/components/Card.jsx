@@ -23,7 +23,7 @@ export function Card({ card, turnCard, matchedCards, selectedCards }) {
 				animate={{
 					rotateY: isSelected || isMatched ? 180 : 0
 				}}
-				transition={{ duration: 0.4 }}
+				transition={{ duration: 0.6 }}
 			>
 				<m.div
 					className={styles.cardFront}

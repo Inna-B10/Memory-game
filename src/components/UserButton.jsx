@@ -1,17 +1,27 @@
+import cn from 'clsx'
 import { useAtom } from 'jotai'
+import PropTypes from 'prop-types'
 import { storedUser } from '../store'
-import styles from './UserButton.module.css'
 
 export function UserButton({ user, onSelect }) {
 	const [currentUser] = useAtom(storedUser)
+	const isSelected = user.userName === currentUser?.userName
 
 	return (
 		<button
-			className={`${styles.userCard} ${styles.avatarButton} ${user.userName === currentUser?.userName ? styles.selected : ''}`}
-			onClick={() => onSelect(user)}
+			className={cn('flex', 'column', { ['selected']: isSelected })}
+			onClick={() => onSelect?.(user)}
 		>
-			<div className={styles.userName}>{user.userName}</div>
-			<div className={styles.userAvatar}>{user.icon}</div>
+			<div>{user.userName}</div>
+			<div>{user.icon}</div>
 		</button>
 	)
+}
+
+UserButton.propTypes = {
+	user: PropTypes.shape({
+		userName: PropTypes.string.isRequired,
+		icon: PropTypes.node.isRequired
+	}).isRequired,
+	onSelect: PropTypes.func.isRequired
 }

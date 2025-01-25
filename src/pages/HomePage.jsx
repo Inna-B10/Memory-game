@@ -1,3 +1,4 @@
+import cn from 'clsx'
 import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -97,7 +98,7 @@ export function HomePage() {
 							key={emoji}
 							type='button'
 							value={emoji}
-							className={`${styles.avatarButton} ${newAvatar === emoji ? styles.selected : ''}`}
+							className={cn({ ['selected']: newAvatar === emoji })}
 							onClick={e => setNewAvatar(e.target.value)}
 						>
 							{emoji}
@@ -105,12 +106,7 @@ export function HomePage() {
 					))}
 				</div>
 
-				<button
-					onClick={createNewUser}
-					className={styles.createButton}
-				>
-					Create
-				</button>
+				<button onClick={createNewUser}>Create</button>
 			</div>
 		</div>
 	)

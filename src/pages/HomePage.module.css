@@ -27,35 +27,8 @@
   margin: 10px 0;
 }
 
-.avatarButton {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.avatarButton:hover {
-  background-color: #f0f0f0;
-}
-
 .avatarButton.selected {
-  border-color: #007bff;
-  background-color: #007bff;
-  color: white;
-}
-
-.createButton {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.createButton:hover {
-  background-color: #0056b3;
+  border-color: #FFF1A7;
+  background-color: #FFF1A7;
+  color: #fff;
 }
