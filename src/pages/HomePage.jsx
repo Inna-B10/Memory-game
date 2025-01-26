@@ -2,7 +2,10 @@ import cn from 'clsx'
 import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserButton } from '../components/UserButton.jsx'
+import { Button } from '../components/Button.jsx'
+import stylesButton from '../components/Button.module.css'
+import { Field } from '../components/Field.jsx'
+import { avatarOptions } from '../constants.js'
 import { fullGameData, storedUser } from '../store.jsx'
 import styles from './HomePage.module.css'
 
@@ -11,9 +14,10 @@ export function HomePage() {
 	const [newAvatar, setNewAvatar] = useState('🍎')
 
 	const [data, setData] = useAtom(fullGameData)
-	console.log(data)
 	const [currentUser, setCurrentUser] = useAtom(storedUser)
 
+	console.log('data:', data, 'current:', currentUser)
+	console.log('new avatar ', newAvatar)
 	const navigate = useNavigate()
 
 	/* ------------------------------- Select User ------------------------------ */
@@ -23,6 +27,13 @@ export function HomePage() {
 		navigate('/user') //go to userPage
 	}
 
+	function selectNewAvatar(value) {
+		setNewAvatar(value)
+	}
+	function saveNewName(name) {
+		console.log(name)
+		setNewName(name)
+	}
 	/* -------------------------------- New User -------------------------------- */
 	const handleKeyDown = e => {
 		if (e.key !== 'Enter') return
@@ -69,22 +80,25 @@ export function HomePage() {
 					<p>Choose you profile:</p>
 					<div className={styles.avatarSelector}>
 						{data.map(user => (
-							<UserButton
+							<Button
 								key={user.userName}
-								user={user}
-								onSelect={handleUserSelect}
-							/>
+								handler={() => handleUserSelect(user)}
+								className={cn(`flex center ${stylesButton.regular}`, {
+									[`${stylesButton.selected}`]: user.userName === currentUser?.userName
+								})}
+							>
+								<span>{user.icon}</span>
+								<span>{user.userName}</span>
+							</Button>
 						))}
 					</div>
 				</>
 			)}
 			<div className={styles.createUser}>
-				<label>Create new player:</label>
-				<input
-					type='text'
+				<Field
+					label='Create new player'
 					placeholder='your name'
-					name='name'
-					maxLength={30}
+					name='user-name'
 					value={newName}
 					onChange={e => {
 						setNewName(e.target.value)
@@ -93,20 +107,25 @@ export function HomePage() {
 				/>
 				<p>Choose your avatar:</p>
 				<div className={styles.avatarSelector}>
-					{['🍎', '🍇', '🍓', '🍍', '🍉'].map(emoji => (
-						<button
+					{avatarOptions.map(emoji => (
+						<Button
 							key={emoji}
-							type='button'
-							value={emoji}
-							className={cn({ ['selected']: newAvatar === emoji })}
-							onClick={e => setNewAvatar(e.target.value)}
+							className={cn(`${stylesButton.regular}`, {
+								[`${stylesButton.selected}`]: newAvatar === emoji
+							})}
+							handler={() => selectNewAvatar(emoji)}
 						>
 							{emoji}
-						</button>
+						</Button>
 					))}
 				</div>
 
-				<button onClick={createNewUser}>Create</button>
+				<Button
+					className={stylesButton.regular}
+					handler={createNewUser}
+				>
+					Create
+				</Button>
 			</div>
 		</div>
 	)

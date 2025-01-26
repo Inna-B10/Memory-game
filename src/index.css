@@ -28,14 +28,26 @@ body {
 }
 
 #root {
+  width: 100%;
   max-width: 800px;
-  padding: 3rem;
-  /* background-image: url("./bg-small.png");
-  background-size: cover; */
-  border-radius: 20px;
-  background-color: rgba(169, 134, 219, 0.8);
-  /* background-color: rgba(255, 255, 0, 0.2); */
+  padding: 2rem;
+
+  border-radius: 2rem;
+  /* background-color: rgba(230, 205, 242, 0.4); */
+  /* background-color: rgba(169, 134, 219, 0.8); */
+  background-color: rgba(255, 255, 0, 0.2);
   border: 1px solid rgba(153, 51, 204, 0.8);
+}
+
+main {
+  background-image: url("./bg-small.png");
+  background-size: 110% 110%;
+  background-position: center;
+  border: 1px solid rgba(153, 51, 204, 0.5);
+  /* background-color: rgba(255, 255, 255, 0.7); */
+  /* background-color: rgba(169, 134, 219, 0.8); */
+  box-shadow: 2px 2px 8px 1px rgba(153, 51, 204, 0.8);
+  border-radius: 2rem;
 }
 
 .flex {
@@ -44,6 +56,11 @@ body {
 
 .column {
   flex-direction: column;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
 }
 
 a {
@@ -65,29 +82,31 @@ button {
   position: relative;
   display: inline-block;
   padding: 0.4em 0.8em;
-  background-color: #48137F;
-  background-image: linear-gradient(#48137F, #662D91);
-  border: 2px solid #662D91;
   border-radius: 12px;
   cursor: pointer;
+  border: none;
+
+  /* background-color: #48137F;
+  background-image: linear-gradient(#48137F, #662D91);
+  border: 2px solid #662D91; */
 
   /* text styles */
-  color: #fff;
+  /* color: #fff;
   font-size: 1.5rem;
   font-family: sans-serif;
-  font-weight: bold;
+  font-weight: bold; */
   /* font-family: inherit; */
-  text-decoration: none;
+  /* text-decoration: none;
   text-shadow:
     3px 3px 0 #48137F,
     -1px -1px 0 #48137F,
     1px -1px 0 #48137F,
     -1px 1px 0 #48137F,
-    1px 1px 0 #48137F;
+    1px 1px 0 #48137F; */
 }
 
 /* glass effect */
-button:after {
+/* button:after {
   content: '';
   position: absolute;
   top: 0px;
@@ -96,21 +115,21 @@ button:after {
   height: 45%;
   background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
   border-radius: 8px 8px 2px 2px;
-}
+} */
 
-.selected {
+/* .selected {
   border-color: #FFF1A7;
   background-color: #FFF1A7;
   color: #fff;
-}
-
+} */
+/* 
 button:hover {
   background-color: #662D91;
   background-image: linear-gradient(#662D91, #76449D);
   border: 2px solid #76449D;
-}
-
+} */
+/* 
 button:focus,
 button:focus-visible {
   outline: 4px auto rgba(255, 255, 0, 0.8);
-}
+} */

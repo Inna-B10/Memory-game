@@ -4,3 +4,5 @@ export const levels = [
 	{ countCards: 10, level: 'hard' },
 	{ countCards: 15, level: 'expert' }
 ]
+
+export const avatarOptions = ['🍎', '🍇', '🍓', '🍍', '🍉']
