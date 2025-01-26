@@ -58,6 +58,7 @@ main {
   /* background-color: rgba(169, 134, 219, 0.8); */
   box-shadow: 2px 2px 8px 1px rgba(153, 51, 204, 0.8);
   border-radius: 2rem;
+  padding: 1.5rem;
 }
 
 input {
@@ -101,8 +102,12 @@ h1 {
   align-items: center;
 }
 
+.title {
+  text-align: center;
+}
+
 h1.title {
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 }
 
 h2.title {

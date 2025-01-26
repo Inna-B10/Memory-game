@@ -5,7 +5,7 @@ import styles from './Button.module.css'
 export function Button({ handler, children, className, ...props }) {
 	return (
 		<button
-			className={cn(styles.regular, className)}
+			className={cn(styles.regularButton, className)}
 			onClick={handler}
 			{...props}
 		>

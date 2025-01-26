@@ -2,6 +2,8 @@ import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button.jsx'
+import stylesButton from '../../components/Button.module.css'
+import { UserProfile } from '../../components/UserProfile.jsx'
 import { levels } from '../../constants.js'
 import { fullGameData, storedUser } from '../../store.jsx'
 import styles from './UserPage.module.css'
@@ -40,39 +42,43 @@ export function UserPage() {
 		navigate('/')
 	}
 	return (
-		<>
-			{/* -------------------------------- User Info ------------------------------- */}
-			<div className='flex center'>
+		<div className={styles.userPage}>
+			{/* ---------------------------- Handle Player Btn --------------------------- */}
+			<div className={styles.funcBtnContainer}>
 				<Button
 					handler={() => navigate('/')}
-					className='level-button'
+					className={stylesButton.smallButton}
 				>
-					Change user
+					Change player
 				</Button>
-				<h1>
-					{currentUser.icon}
-					{currentUser.userName}
-				</h1>
 				<Button
 					type='button'
 					handler={() => deleteUser(currentUser.userName)}
+					className={stylesButton.smallButton}
 				>
-					Delete user
+					Delete player
 				</Button>
 			</div>
+			{/* -------------------------------- User Info ------------------------------- */}
+			<h1 className='title'>
+				{currentUser.icon}
+				{currentUser.userName}
+			</h1>
+			<section className={styles.userInfo}>
+				<UserProfile user={currentUser} />
+			</section>
 			{/* ----------------------------- Level Selection ---------------------------- */}
-			<h2>Choose level:</h2>
-			<div>
+			<h2 className='title'>Choose level:</h2>
+			<div className={styles.levelButtonsContainer}>
 				{levels.map((level, index) => (
 					<Button
 						key={index}
 						handler={() => navigate('/game', { state: { countCards: level.countCards } })}
-						className={styles.levelButton}
 					>
 						{level.level}
 					</Button>
 				))}
 			</div>
-		</>
+		</div>
 	)
 }

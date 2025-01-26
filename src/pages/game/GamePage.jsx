@@ -10,11 +10,27 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const location = useLocation()
 	const { countCards } = location.state || {}
+	let level = 'easy'
 
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [selectedCards, setSelectedCards] = useState([])
 	const [matchedCards, setMatchedCards] = useState([])
+
+	switch (countCards) {
+		case 6:
+			level = 'easy'
+			break
+		case 8:
+			level = 'middle'
+			break
+		case 10:
+			level = 'hard'
+			break
+		case 15:
+			level = 'expert'
+			break
+	}
 
 	/* ------------------------------- Load Images ------------------------------ */
 	//[TODO] errors fetching images
@@ -73,6 +89,7 @@ export function GamePage() {
 
 	return (
 		<>
+			<h1 className='title'>Level: {level}</h1>
 			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>
 				{loading ? (
 					<p>Loading...</p>

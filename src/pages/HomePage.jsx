@@ -56,10 +56,10 @@ export function HomePage() {
 			icon: newAvatar,
 			totalGames: 0,
 			results: {
-				easy: { score: 0, count: 0 },
-				middle: { score: 0, count: 0 },
-				hard: { score: 0, count: 0 },
-				expert: { score: 0, count: 0 }
+				easy: { time: 0, moves: 0 },
+				middle: { time: 0, moves: 0 },
+				hard: { time: 0, moves: 0 },
+				expert: { time: 0, moves: 0 }
 			}
 		}
 		const updatedFullData = [...data, newUser]
