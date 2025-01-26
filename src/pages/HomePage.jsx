@@ -21,24 +21,22 @@ export function HomePage() {
 	const navigate = useNavigate()
 
 	/* ------------------------------- Select User ------------------------------ */
-	function handleUserSelect(user) {
+	function selectExistUser(user) {
 		localStorage.setItem('currentUserMG', JSON.stringify(user))
 		setCurrentUser(user)
 		navigate('/user') //go to userPage
 	}
 
+	/* -------------------------------- New User -------------------------------- */
 	function selectNewAvatar(value) {
 		setNewAvatar(value)
 	}
-	function saveNewName(name) {
-		console.log(name)
-		setNewName(name)
-	}
-	/* -------------------------------- New User -------------------------------- */
+
 	const handleKeyDown = e => {
 		if (e.key !== 'Enter') return
 		createNewUser()
 	}
+
 	function createNewUser() {
 		if (newName.trim() === '') {
 			//[TODO] modal message
@@ -74,16 +72,15 @@ export function HomePage() {
 
 	return (
 		<div className={styles.homePage}>
-			<h2>HomePage</h2>
 			{data.length > 0 && (
 				<>
-					<p>Choose you profile:</p>
-					<div className={styles.avatarSelector}>
+					<h1 className='title'>Exist players:</h1>
+					<section className={styles.buttonsContainer}>
 						{data.map(user => (
 							<Button
 								key={user.userName}
-								handler={() => handleUserSelect(user)}
-								className={cn(`flex center ${stylesButton.regular}`, {
+								handler={() => selectExistUser(user)}
+								className={cn(`flex center`, {
 									[`${stylesButton.selected}`]: user.userName === currentUser?.userName
 								})}
 							>
@@ -91,13 +88,14 @@ export function HomePage() {
 								<span>{user.userName}</span>
 							</Button>
 						))}
-					</div>
+					</section>
 				</>
 			)}
-			<div className={styles.createUser}>
+			<h2 className='title'> Create new player:</h2>
+			<section className={styles.newUserContainer}>
 				<Field
-					label='Create new player'
-					placeholder='your name'
+					label='Enter your name'
+					placeholder='Enter your name'
 					name='user-name'
 					value={newName}
 					onChange={e => {
@@ -105,12 +103,12 @@ export function HomePage() {
 					}}
 					onKeyDown={handleKeyDown}
 				/>
-				<p>Choose your avatar:</p>
-				<div className={styles.avatarSelector}>
+				<div>Choose your avatar:</div>
+				<div className={styles.buttonsContainer}>
 					{avatarOptions.map(emoji => (
 						<Button
 							key={emoji}
-							className={cn(`${stylesButton.regular}`, {
+							className={cn(stylesButton.avatarButtons, {
 								[`${stylesButton.selected}`]: newAvatar === emoji
 							})}
 							handler={() => selectNewAvatar(emoji)}
@@ -119,14 +117,9 @@ export function HomePage() {
 						</Button>
 					))}
 				</div>
+			</section>
 
-				<Button
-					className={stylesButton.regular}
-					handler={createNewUser}
-				>
-					Create
-				</Button>
-			</div>
+			<Button handler={createNewUser}>Save</Button>
 		</div>
 	)
 }

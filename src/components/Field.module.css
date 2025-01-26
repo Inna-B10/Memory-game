@@ -1,14 +1,33 @@
 .userNameInput {
-  border: 1px solid rgba(153, 51, 204, 1);
-  margin-left: 1rem;
-  padding: 1rem;
-  line-height: 1.5rem;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+
+  padding: 10px;
+  border: 2px inset #DFCDE5;
   border-radius: 6px;
-  outline: none;
-  background-color: #FDF4C3;
+  background-color: rgba(255, 255, 255, 0.7);
+  /* text style */
+  line-height: 1.5rem;
+  font-family: inherit;
+  color: #48137F;
+  text-align: center;
 }
 
 .userNameInput:focus {
-  border: 1px solid #48137F;
-  background-color: #fff;
+  border-color: #93c7d2;
+  box-shadow: 0 0 5px #36A3D0;
+}
+
+.userNameInput::placeholder {
+  text-align: center;
+  color: inherit;
+  opacity: 1;
+  /* Firefox */
+}
+
+/* Edge 12 -18 */
+.userNameInput::-ms-input-placeholder {
+  color: inherit;
 }

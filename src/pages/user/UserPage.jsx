@@ -1,8 +1,10 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../../components/Button.jsx'
 import { levels } from '../../constants.js'
 import { fullGameData, storedUser } from '../../store.jsx'
+import styles from './UserPage.module.css'
 
 export function UserPage() {
 	const [currentUser, setCurrentUser] = useAtom(storedUser)
@@ -40,41 +42,35 @@ export function UserPage() {
 	return (
 		<>
 			{/* -------------------------------- User Info ------------------------------- */}
-			<div>
-				<Link
-					to={'/'}
+			<div className='flex center'>
+				<Button
+					handler={() => navigate('/')}
 					className='level-button'
 				>
 					Change user
-				</Link>
-				{currentUser.icon}
-				{currentUser.userName}
-				<button
+				</Button>
+				<h1>
+					{currentUser.icon}
+					{currentUser.userName}
+				</h1>
+				<Button
 					type='button'
-					onClick={() => deleteUser(currentUser.userName)}
+					handler={() => deleteUser(currentUser.userName)}
 				>
-					delete user
-				</button>
+					Delete user
+				</Button>
 			</div>
 			{/* ----------------------------- Level Selection ---------------------------- */}
+			<h2>Choose level:</h2>
 			<div>
 				{levels.map((level, index) => (
-					// <Link
-					// 	key={index}
-					// 	to='/game'
-					// 	state={{ countCards: level.countCards }}
-					// 	className='level-button'
-					// >
-					// 	{level.level}
-					// </Link>
-
-					<button
+					<Button
 						key={index}
-						onClick={() => navigate('/game', { state: { countCards: level.countCards } })}
-						className='level-button'
+						handler={() => navigate('/game', { state: { countCards: level.countCards } })}
+						className={styles.levelButton}
 					>
 						{level.level}
-					</button>
+					</Button>
 				))}
 			</div>
 		</>

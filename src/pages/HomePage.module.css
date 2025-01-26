@@ -1,34 +1,19 @@
 .homePage {
   text-align: center;
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
 }
 
-/* .existUsers {
+.buttonsContainer {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-} */
-
-.createUser {
-  margin-top: 20px;
-}
-
-.createUser input {
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.avatarSelector {
-  display: flex;
   gap: 10px;
   justify-content: center;
-  margin: 10px 0;
+  margin-bottom: 30px;
 }
 
-.avatarButton.selected {
-  border-color: #FFF1A7;
-  background-color: #FFF1A7;
-  color: #fff;
+.newUserContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }

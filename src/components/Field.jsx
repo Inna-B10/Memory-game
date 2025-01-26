@@ -4,7 +4,6 @@ import styles from './Field.module.css'
 export function Field({ label, placeholder, name, value, onChange, onKeyDown, ...props }) {
 	return (
 		<div>
-			<label>{label}:</label>
 			<input
 				className={styles.userNameInput}
 				type='text'
@@ -14,6 +13,7 @@ export function Field({ label, placeholder, name, value, onChange, onKeyDown, ..
 				maxLength={30}
 				onChange={onChange}
 				onKeyDown={onKeyDown}
+				label={label}
 				{...props}
 			/>
 		</div>

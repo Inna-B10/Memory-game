@@ -1,9 +1,11 @@
+import cn from 'clsx'
 import PropTypes, { string } from 'prop-types'
+import styles from './Button.module.css'
 
 export function Button({ handler, children, className, ...props }) {
 	return (
 		<button
-			className={className}
+			className={cn(styles.regular, className)}
 			onClick={handler}
 			{...props}
 		>
