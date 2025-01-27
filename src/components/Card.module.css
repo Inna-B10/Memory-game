@@ -12,7 +12,6 @@
 .cardInner {
   position: relative;
   transform-style: preserve-3d;
-  /* transition: transform 0.6s; */
 }
 
 .cardFront,
@@ -25,7 +24,7 @@
 }
 
 .cardFront {
-  /* background-color: #ddd; */
+  background-color: #93C7D2;
   /* border-radius: 2rem; */
 }
 
@@ -38,10 +37,10 @@
 
 .matchedCards {
   cursor: none;
-  opacity: 0.9;
+  opacity: 0.7;
   /* box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.3); */
 }
 
 .selectedCards {
-  box-shadow: 0px 0px 2px 5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0px 0px 2px 5px rgba(116, 187, 229, 0.7) !important;
 }

@@ -5,14 +5,14 @@ import { Button } from '../components/Button.jsx'
 import stylesButton from '../components/Button.module.css'
 import { Field } from '../components/Field.jsx'
 import { avatarOptions } from '../constants.js'
-import { userStore } from '../store/userStore.jsx'
+import { useUserStore } from '../store/userStore.jsx'
 import styles from './HomePage.module.css'
 
 export function HomePage() {
 	const [newName, setNewName] = useState('')
 	const [newAvatar, setNewAvatar] = useState('🍎')
 
-	const { allUsers, addNewUser, currentUser, setCurrentUser } = userStore()
+	const { allUsers, addNewUser, currentUser, setCurrentUser } = useUserStore()
 
 	console.log('users:', allUsers, 'current:', currentUser)
 	console.log('new avatar ', newAvatar)

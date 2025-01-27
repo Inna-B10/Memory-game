@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export const userStore = create(set => ({
+export const useUserStore = create(set => ({
 	allUsers: JSON.parse(localStorage.getItem('memoryGame')) || [],
 	currentUser: JSON.parse(localStorage.getItem('currentUserMG')) || null,
 

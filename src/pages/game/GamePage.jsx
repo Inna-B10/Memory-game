@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Card } from '../../components/Card'
-import { userStore } from '../../store/userStore'
+import { useUserStore } from '../../store/userStore'
 import styles from './GamePage.module.css'
 
 /* ------------------------------- Grid Column ------------------------------ */
@@ -11,6 +11,8 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const location = useLocation()
 	const { countCards } = location.state || {}
+	const cardsToShow = countCards ?? 6
+
 	let level = 'easy'
 
 	const [cards, setCards] = useState([])
@@ -18,9 +20,9 @@ export function GamePage() {
 	const [selectedCards, setSelectedCards] = useState([])
 	const [matchedCards, setMatchedCards] = useState([])
 	const [countMoves, setCountMoves] = useState(0)
-	const updateUser = userStore(state => state.updateUser)
+	const updateUser = useUserStore(state => state.updateUser)
 
-	switch (countCards) {
+	switch (cardsToShow) {
 		case 6:
 			level = 'easy'
 			break
@@ -40,19 +42,20 @@ export function GamePage() {
 	useEffect(() => {
 		async function fetchImages() {
 			setLoading(true)
-			const images = await GetImages(countCards)
+			const images = await GetImages(cardsToShow)
 			setCards(images)
 			setLoading(false)
 		}
 		fetchImages()
-	}, [countCards])
+	}, [cardsToShow])
 
 	//[TODO] modal message
 	/* ---------------------- Checking For Game Completion ---------------------- */
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
-			alert('Game finished!')
+			setTimeout(() => alert('Game finished!'), 1500)
 			updateUser(countMoves, level)
+			//[todo] reset game
 		}
 	}, [matchedCards, cards, updateUser, countMoves, level])
 
@@ -74,20 +77,22 @@ export function GamePage() {
 			// if second card
 			else {
 				setCountMoves(countMoves => countMoves + 1)
-				//if cards do match
-				if (selectedCards[0].name === card.name) {
-					setTimeout(
-						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
-						1000
-					)
-				}
-				// if cards do not match
 				setSelectedCards(prevSelectedCards => [
 					...prevSelectedCards,
 					{ id: card.id, name: card.name }
 				])
-				//flipp cards back
-				setTimeout(() => setSelectedCards([]), 1200)
+				//if cards do match
+				if (selectedCards[0].name === card.name) {
+					setTimeout(
+						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
+						500
+					)
+					setTimeout(() => setSelectedCards([]), 550)
+					// if cards do not match
+				} else {
+					//flipp cards back
+					setTimeout(() => setSelectedCards([]), 1000)
+				}
 			}
 		},
 		[selectedCards, matchedCards]

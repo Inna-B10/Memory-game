@@ -4,11 +4,11 @@ import { Button } from '../../components/Button.jsx'
 import stylesButton from '../../components/Button.module.css'
 import { UserProfile } from '../../components/UserProfile.jsx'
 import { levels } from '../../constants.js'
-import { userStore } from '../../store/userStore.jsx'
+import { useUserStore } from '../../store/userStore.jsx'
 import styles from './UserPage.module.css'
 
 export function UserPage() {
-	const { currentUser, setCurrentUser, deleteUser } = userStore()
+	const { currentUser, setCurrentUser, deleteUser } = useUserStore()
 	const navigate = useNavigate()
 
 	/* ---------------------------- If User Undefined --------------------------- */
