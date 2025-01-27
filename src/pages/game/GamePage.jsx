@@ -61,7 +61,7 @@ export function GamePage() {
 			setTimeout(() => alert('Game finished!'), 1500)
 			//[todo] reset game
 		}
-	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, isGameOn, gameDuration])
+	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, isGameOn])
 
 	/* ------------------------- Processing Card Clicks ------------------------- */
 	const turnCard = useCallback(
@@ -90,13 +90,13 @@ export function GamePage() {
 				if (selectedCards[0].name === card.name) {
 					setTimeout(
 						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
-						300
+						550
 					)
-					setTimeout(() => setSelectedCards([]), 350)
+					setTimeout(() => setSelectedCards([]), 560)
 					// if cards do not match
 				} else {
 					//flipp cards back
-					setTimeout(() => setSelectedCards([]), 600)
+					setTimeout(() => setSelectedCards([]), 800)
 				}
 			}
 		},
@@ -121,6 +121,7 @@ export function GamePage() {
 							turnCard={turnCard}
 							selectedCards={selectedCards}
 							matchedCards={matchedCards}
+							isGameOn={isGameOn}
 						/>
 					))
 				)}

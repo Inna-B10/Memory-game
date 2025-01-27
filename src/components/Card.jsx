@@ -3,7 +3,7 @@ import { m } from 'framer-motion'
 import PropTypes, { array } from 'prop-types'
 import styles from './Card.module.css'
 
-export function Card({ card, turnCard, matchedCards, selectedCards }) {
+export function Card({ card, turnCard, matchedCards, selectedCards, isGameOn }) {
 	const isSelected = selectedCards.find(item => item.id === card.id)
 	const isMatched = matchedCards.includes(card.name)
 
@@ -42,6 +42,7 @@ export function Card({ card, turnCard, matchedCards, selectedCards }) {
 						alt=''
 						className={cn(
 							styles.card,
+							{ [styles.selectedCards]: !isGameOn },
 							{ [styles.matchedCards]: isMatched },
 							{ [styles.selectedCards]: isSelected }
 						)}
@@ -60,5 +61,6 @@ Card.propTypes = {
 	}).isRequired,
 	turnCard: PropTypes.func.isRequired,
 	matchedCards: array.isRequired,
-	selectedCards: array.isRequired
+	selectedCards: array.isRequired,
+	isGameOn: PropTypes.bool.isRequired
 }

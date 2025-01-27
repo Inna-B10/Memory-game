@@ -29,20 +29,20 @@ UserProfile.propTypes = {
 		icon: PropTypes.node.isRequired,
 		results: PropTypes.shape({
 			easy: PropTypes.shape({
-				time: PropTypes.number.isRequired,
-				moves: PropTypes.number.isRequired
+				time: PropTypes.number,
+				moves: PropTypes.number
 			}),
 			middle: PropTypes.shape({
-				time: PropTypes.number.isRequired,
-				moves: PropTypes.number.isRequired
+				time: PropTypes.number,
+				moves: PropTypes.number
 			}),
 			expert: PropTypes.shape({
-				time: PropTypes.number.isRequired,
-				moves: PropTypes.number.isRequired
+				time: PropTypes.number,
+				moves: PropTypes.number
 			}),
 			hard: PropTypes.shape({
-				time: PropTypes.number.isRequired,
-				moves: PropTypes.number.isRequired
+				time: PropTypes.number,
+				moves: PropTypes.number
 			}).isRequired
 		}),
 		totalGames: PropTypes.number.isRequired
