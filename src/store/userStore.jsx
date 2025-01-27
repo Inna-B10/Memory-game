@@ -39,24 +39,22 @@ export const useUserStore = create(set => ({
 	},
 
 	/* ------------------------------- Update User ------------------------------ */
-	updateUser: (moves, level) => {
-		set(
-			state => {
-				// const newScore = time / moves
+	updateUser: (moves, level, time) => {
+		set(state => {
+			const newScore = Math.round((time / moves) * 10) / 10
 
-				//find the current user
-				const currentUser = state.currentUser
+			//find the current user
+			const currentUser = state.currentUser
 
-				//get the current results for the level
-				const currentLevelResult = currentUser.results[level]
+			//get the current results for the level
+			const currentLevelResult = currentUser.results[level]
 
-				//update data for level if new result is better
-				// if (currentLevelResult.score === 0 || newScore < currentLevelResult.score) {
+			//update data for level if new result is better
+			if (currentLevelResult.score === 0 || newScore < currentLevelResult.score) {
 				const updatedLevelResult = {
-					time: 0,
+					time,
 					moves,
-					// score: newScore
-					score: 0
+					score: newScore
 				}
 
 				//update user results
@@ -84,10 +82,9 @@ export const useUserStore = create(set => ({
 				return { allUsers: updatedAllUsers, currentUser: updatedUser }
 			}
 			//if the result is not better
-			// console.log('New score is not better than the current one.')
-			// return state
-			// }
-		)
+			console.log('New score is not better. new:', newScore, currentLevelResult)
+			return state
+		})
 	},
 
 	/* ------------------------------ Current User ------------------------------ */

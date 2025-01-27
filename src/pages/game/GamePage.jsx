@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Card } from '../../components/Card'
+import { Timer } from '../../components/Timer'
+import { useGameStore } from '../../store/gameStore'
 import { useUserStore } from '../../store/userStore'
 import styles from './GamePage.module.css'
 
@@ -21,6 +23,7 @@ export function GamePage() {
 	const [matchedCards, setMatchedCards] = useState([])
 	const [countMoves, setCountMoves] = useState(0)
 	const updateUser = useUserStore(state => state.updateUser)
+	const { startGame, stopGame, isGameOn, gameDuration } = useGameStore()
 
 	switch (cardsToShow) {
 		case 6:
@@ -53,11 +56,12 @@ export function GamePage() {
 	/* ---------------------- Checking For Game Completion ---------------------- */
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
+			stopGame()
+			updateUser(countMoves, level, gameDuration)
 			setTimeout(() => alert('Game finished!'), 1500)
-			updateUser(countMoves, level)
 			//[todo] reset game
 		}
-	}, [matchedCards, cards, updateUser, countMoves, level])
+	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, isGameOn, gameDuration])
 
 	/* ------------------------- Processing Card Clicks ------------------------- */
 	const turnCard = useCallback(
@@ -72,6 +76,7 @@ export function GamePage() {
 			}
 			//if first card
 			if (selectedCards.length === 0) {
+				isGameOn === false && startGame()
 				setSelectedCards([{ id: card.id, name: card.name }])
 			}
 			// if second card
@@ -85,25 +90,25 @@ export function GamePage() {
 				if (selectedCards[0].name === card.name) {
 					setTimeout(
 						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
-						500
+						300
 					)
-					setTimeout(() => setSelectedCards([]), 550)
+					setTimeout(() => setSelectedCards([]), 350)
 					// if cards do not match
 				} else {
 					//flipp cards back
-					setTimeout(() => setSelectedCards([]), 1000)
+					setTimeout(() => setSelectedCards([]), 600)
 				}
 			}
 		},
-		[selectedCards, matchedCards]
+		[selectedCards, matchedCards, isGameOn, startGame]
 	)
 
 	return (
 		<>
 			<h1 className='title'>Level: {level}</h1>
-			<div className='flex'>
+			<div className={styles.statisticContainer}>
 				<div>Moves: {countMoves}</div>
-				<div>Time:</div>
+				<Timer />
 			</div>
 			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>
 				{loading ? (

@@ -31,6 +31,13 @@
   grid-template-columns: repeat(5, 1fr);
 }
 
+.statisticContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 400px) {
   .grid img {
     border-radius: 1rem;
