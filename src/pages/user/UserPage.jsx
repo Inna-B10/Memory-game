@@ -1,16 +1,14 @@
-import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button.jsx'
 import stylesButton from '../../components/Button.module.css'
 import { UserProfile } from '../../components/UserProfile.jsx'
 import { levels } from '../../constants.js'
-import { fullGameData, storedUser } from '../../store.jsx'
+import { userStore } from '../../store/userStore.jsx'
 import styles from './UserPage.module.css'
 
 export function UserPage() {
-	const [currentUser, setCurrentUser] = useAtom(storedUser)
-	const [users, setUsers] = useAtom(fullGameData)
+	const { currentUser, setCurrentUser, deleteUser } = userStore()
 	const navigate = useNavigate()
 
 	/* ---------------------------- If User Undefined --------------------------- */
@@ -25,21 +23,17 @@ export function UserPage() {
 		}
 	}, [currentUser, navigate, setCurrentUser])
 
+	//[TODO] loader
 	// Render fallback if currentUser is not loaded
 	if (!currentUser) return <div>Loading...</div>
 
 	/* ------------------------------- Delete User ------------------------------ */
 	//[TODO] modal message
-	function deleteUser(name) {
-		const updatedUsers = users.filter(user => user.userName !== name)
-		setUsers(updatedUsers)
-		localStorage.setItem('memoryGame', JSON.stringify(updatedUsers))
-
-		//delete current user
-		setCurrentUser(null)
-		localStorage.removeItem('currentUserMG')
-
-		navigate('/')
+	function deleteCurrentUser(name) {
+		if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+			deleteUser(name)
+			navigate('/')
+		}
 	}
 	return (
 		<div className={styles.userPage}>
@@ -53,7 +47,7 @@ export function UserPage() {
 				</Button>
 				<Button
 					type='button'
-					handler={() => deleteUser(currentUser.userName)}
+					handler={() => deleteCurrentUser(currentUser.userName)}
 					className={stylesButton.smallButton}
 				>
 					Delete player

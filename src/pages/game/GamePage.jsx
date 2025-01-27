@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Card } from '../../components/Card'
+import { userStore } from '../../store/userStore'
 import styles from './GamePage.module.css'
 
 /* ------------------------------- Grid Column ------------------------------ */
@@ -16,6 +17,8 @@ export function GamePage() {
 	const [loading, setLoading] = useState(false)
 	const [selectedCards, setSelectedCards] = useState([])
 	const [matchedCards, setMatchedCards] = useState([])
+	const [countMoves, setCountMoves] = useState(0)
+	const updateUser = userStore(state => state.updateUser)
 
 	switch (countCards) {
 		case 6:
@@ -44,12 +47,14 @@ export function GamePage() {
 		fetchImages()
 	}, [countCards])
 
+	//[TODO] modal message
 	/* ---------------------- Checking For Game Completion ---------------------- */
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
-			alert('finish')
+			alert('Game finished!')
+			updateUser(countMoves, level)
 		}
-	}, [matchedCards, cards])
+	}, [matchedCards, cards, updateUser, countMoves, level])
 
 	/* ------------------------- Processing Card Clicks ------------------------- */
 	const turnCard = useCallback(
@@ -68,11 +73,12 @@ export function GamePage() {
 			}
 			// if second card
 			else {
+				setCountMoves(countMoves => countMoves + 1)
 				//if cards do match
 				if (selectedCards[0].name === card.name) {
 					setTimeout(
 						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
-						1500
+						1000
 					)
 				}
 				// if cards do not match
@@ -81,7 +87,7 @@ export function GamePage() {
 					{ id: card.id, name: card.name }
 				])
 				//flipp cards back
-				setTimeout(() => setSelectedCards([]), 1500)
+				setTimeout(() => setSelectedCards([]), 1200)
 			}
 		},
 		[selectedCards, matchedCards]
@@ -90,6 +96,10 @@ export function GamePage() {
 	return (
 		<>
 			<h1 className='title'>Level: {level}</h1>
+			<div className='flex'>
+				<div>Moves: {countMoves}</div>
+				<div>Time:</div>
+			</div>
 			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>
 				{loading ? (
 					<p>Loading...</p>
