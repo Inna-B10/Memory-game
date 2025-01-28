@@ -18,7 +18,7 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const location = useLocation()
 	const { countCards } = location.state || {}
-	const cardsToShow = countCards ?? 6
+	const cardsToShow = countCards ?? 2
 
 	let level = 'easy'
 
@@ -138,7 +138,9 @@ export function GamePage() {
 			<div className={styles.levelTitleContainer}>
 				<h1 className='textCenter'>Level: {level}</h1>
 				<Button
-					handler={openChoice}
+					handler={() => {
+						openChoice(), stopGame()
+					}}
 					className={stylesButton.exitButton}
 				>
 					Exit

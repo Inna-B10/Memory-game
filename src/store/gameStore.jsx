@@ -6,5 +6,6 @@ export const useGameStore = create(set => ({
 	startGame: () => set({ gameDuration: 0, isGameOn: true }),
 	stopGame: () => set({ isGameOn: false }),
 	incrementTime: () => set(state => ({ gameDuration: state.gameDuration + 1 })),
-	resetTimer: () => set({ gameDuration: 0 })
+	resetTimer: () => set({ gameDuration: 0 }),
+	continueGame: () => set({ isGameOn: true })
 }))

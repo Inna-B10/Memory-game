@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useGameStore } from '../../store/gameStore'
 import { useUserStore } from '../../store/userStore'
 import { Button } from '../Button'
 import styles from './Modal.module.css'
@@ -37,6 +38,7 @@ export const EndGame = ({ cardsToShow, onChoice }) => {
 	)
 }
 export const ConfirmExit = ({ onChoice }) => {
+	const { continueGame, resetTimer } = useGameStore()
 	const navigate = useNavigate()
 	return (
 		<div className={styles.modalContent}>
@@ -45,19 +47,25 @@ export const ConfirmExit = ({ onChoice }) => {
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
-						navigate('/user'), onChoice()
+						resetTimer(), navigate('/user'), onChoice()
 					}}
 				>
 					Change level
 				</Button>
 				<Button
 					handler={() => {
-						navigate('/'), onChoice()
+						resetTimer(), navigate('/'), onChoice()
 					}}
 				>
 					Change player
 				</Button>
-				<Button handler={() => onChoice()}>Continue game</Button>
+				<Button
+					handler={() => {
+						onChoice(), continueGame()
+					}}
+				>
+					Continue game
+				</Button>
 			</div>
 		</div>
 	)
@@ -118,7 +126,8 @@ MessageEmptyName.propTypes = {
 }
 
 ConfirmExit.propTypes = {
-	onChoice: PropTypes.func
+	onChoice: PropTypes.func,
+	resetTimer: PropTypes.func
 }
 
 EndGame.propTypes = {
