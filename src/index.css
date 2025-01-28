@@ -97,19 +97,19 @@ h1 {
   flex-direction: column;
 }
 
-.center {
+.flexCenter {
   justify-content: center;
   align-items: center;
 }
 
-.title {
+.textCenter {
   text-align: center;
 }
 
-h1.title {
+h1.textCenter {
   margin: 10px 0 20px 0;
 }
 
-h2.title {
+h2.textCenter {
   margin: 10px 0;
 }

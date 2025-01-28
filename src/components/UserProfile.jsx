@@ -5,7 +5,7 @@ export function UserProfile({ user }) {
 	const result = user.results
 	return (
 		<>
-			<h2 className='title'>Best results:</h2>
+			<h2 className='textCenter'>Best results:</h2>
 			<div>
 				Level easy: time:{result.easy.time} moves:{result.easy.moves}
 			</div>

@@ -54,7 +54,7 @@ export function UserPage() {
 				</Button>
 			</div>
 			{/* -------------------------------- User Info ------------------------------- */}
-			<h1 className='title'>
+			<h1 className='textCenter'>
 				{currentUser.icon}
 				{currentUser.userName}
 			</h1>
@@ -62,7 +62,7 @@ export function UserPage() {
 				<UserProfile user={currentUser} />
 			</section>
 			{/* ----------------------------- Level Selection ---------------------------- */}
-			<h2 className='title'>Choose level:</h2>
+			<h2 className='textCenter'>Choose level:</h2>
 			<div className={styles.levelButtonsContainer}>
 				{levels.map((level, index) => (
 					<Button

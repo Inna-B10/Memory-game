@@ -56,13 +56,13 @@ export function HomePage() {
 		<div className={styles.homePage}>
 			{allUsers.length > 0 && (
 				<>
-					<h1 className='title'>Exist players:</h1>
+					<h1 className='textCenter'>Exist players:</h1>
 					<section className={styles.buttonsContainer}>
 						{allUsers.map(user => (
 							<Button
 								key={user.userName}
 								handler={() => selectExistUser(user)}
-								className={cn(`flex center`, {
+								className={cn(`flex flexCenter`, {
 									[`${stylesButton.selected}`]: user.userName === currentUser?.userName
 								})}
 							>
@@ -73,7 +73,7 @@ export function HomePage() {
 					</section>
 				</>
 			)}
-			<h2 className='title'> Create new player:</h2>
+			<h2 className='textCenter'> Create new player:</h2>
 			<section className={styles.newUserContainer}>
 				<Field
 					label='Enter your name'

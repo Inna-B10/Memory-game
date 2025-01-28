@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
+import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
 import { Timer } from '../../components/Timer'
+import { Modal } from '../../components/modal/Modal'
+import { ConfirmExit, EndGame } from '../../components/modal/modalContent'
 import { useGameStore } from '../../store/gameStore'
+import { useModalStore } from '../../store/modalStore'
 import { useUserStore } from '../../store/userStore'
 import styles from './GamePage.module.css'
 
@@ -13,7 +17,7 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const location = useLocation()
 	const { countCards } = location.state || {}
-	const cardsToShow = countCards ?? 6
+	const cardsToShow = countCards ?? 2
 
 	let level = 'easy'
 
@@ -24,6 +28,19 @@ export function GamePage() {
 	const [countMoves, setCountMoves] = useState(0)
 	const updateUser = useUserStore(state => state.updateUser)
 	const { startGame, stopGame, isGameOn, gameDuration } = useGameStore()
+	const { showModal, closeModal } = useModalStore()
+
+	const openChoice = () => {
+		showModal(<ConfirmExit onChoice={closeModal} />)
+	}
+	const openEndGame = useCallback(() => {
+		showModal(
+			<EndGame
+				cardsToShow={cardsToShow}
+				onChoice={closeModal}
+			/>
+		)
+	}, [showModal, closeModal, cardsToShow])
 
 	switch (cardsToShow) {
 		case 6:
@@ -58,10 +75,12 @@ export function GamePage() {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
 			stopGame()
 			updateUser(countMoves, level, gameDuration)
-			setTimeout(() => alert('Game finished!'), 1500)
+			setTimeout(() => {
+				openEndGame()
+			}, 1200)
 			//[todo] reset game
 		}
-	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, isGameOn])
+	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, openEndGame])
 
 	/* ------------------------- Processing Card Clicks ------------------------- */
 	const turnCard = useCallback(
@@ -102,10 +121,14 @@ export function GamePage() {
 		},
 		[selectedCards, matchedCards, isGameOn, startGame]
 	)
-
+	console.log(cardsToShow)
 	return (
 		<>
-			<h1 className='title'>Level: {level}</h1>
+			<h1 className='textCenter'>Level: {level}</h1>
+			<div>
+				<Button handler={openChoice}>Exit</Button>
+				<Modal />
+			</div>
 			<div className={styles.statisticContainer}>
 				<div>Moves: {countMoves}</div>
 				<Timer />
