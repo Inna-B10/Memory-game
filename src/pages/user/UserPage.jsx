@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button.jsx'
 import stylesButton from '../../components/Button.module.css'
 import { UserProfile } from '../../components/UserProfile.jsx'
+import { Modal } from '../../components/modal/Modal.jsx'
+import { ConfirmDeleteUser } from '../../components/modal/modalContent.jsx'
 import { levels } from '../../constants.js'
+import { useModalStore } from '../../store/modalStore.jsx'
 import { useUserStore } from '../../store/userStore.jsx'
 import styles from './UserPage.module.css'
 
 export function UserPage() {
-	const { currentUser, setCurrentUser, deleteUser } = useUserStore()
+	const { currentUser, setCurrentUser } = useUserStore()
+	const { showModal, closeModal } = useModalStore.getState()
 	const navigate = useNavigate()
 
 	/* ---------------------------- If User Undefined --------------------------- */
@@ -28,15 +32,18 @@ export function UserPage() {
 	if (!currentUser) return <div>Loading...</div>
 
 	/* ------------------------------- Delete User ------------------------------ */
-	//[TODO] modal message
 	function deleteCurrentUser(name) {
-		if (window.confirm(`Are you sure you want to delete ${name}?`)) {
-			deleteUser(name)
-			navigate('/')
-		}
+		showModal(
+			<ConfirmDeleteUser
+				name={name}
+				onChoice={closeModal}
+			/>
+		)
 	}
 	return (
 		<div className={styles.userPage}>
+			{/* ---------------------------------- Modal --------------------------------- */}
+			<Modal />
 			{/* ---------------------------- Handle Player Btn --------------------------- */}
 			<div className={styles.funcBtnContainer}>
 				<Button

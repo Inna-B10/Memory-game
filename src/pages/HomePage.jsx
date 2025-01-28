@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button.jsx'
 import stylesButton from '../components/Button.module.css'
 import { Field } from '../components/Field.jsx'
+import { Modal } from '../components/modal/Modal.jsx'
 import { avatarOptions } from '../constants.js'
 import { useUserStore } from '../store/userStore.jsx'
 import styles from './HomePage.module.css'
@@ -54,6 +55,7 @@ export function HomePage() {
 
 	return (
 		<div className={styles.homePage}>
+			<Modal />
 			{allUsers.length > 0 && (
 				<>
 					<h1 className='textCenter'>Exist players:</h1>

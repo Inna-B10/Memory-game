@@ -1,18 +1,8 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useUserStore } from '../../store/userStore'
 import { Button } from '../Button'
 import styles from './Modal.module.css'
-
-// export const endGame = () => {
-// 	return (
-// 		<div>
-// 			<h2> All cards matched!</h2>
-// 			<button onClick={() => alert('Change level')}>Change level</button>
-// 			<button onClick={() => alert('Change player')}>Change player</button>
-// 			<button onClick={() => alert('Play again')}>Play again</button>
-// 		</div>
-// 	)
-// }
 
 export const EndGame = ({ cardsToShow, onChoice }) => {
 	const navigate = useNavigate()
@@ -72,6 +62,60 @@ export const ConfirmExit = ({ onChoice }) => {
 		</div>
 	)
 }
+export const ConfirmDeleteUser = ({ name, onChoice }) => {
+	const navigate = useNavigate()
+	const { deleteUser } = useUserStore()
+
+	return (
+		<div className={styles.modalContent}>
+			<h1>
+				Are you sure you want to delete <br />
+				{name}?
+			</h1>
+			<div className={styles.buttonsContainer}>
+				<Button
+					handler={() => {
+						deleteUser(name), onChoice(), navigate('/')
+					}}
+				>
+					Yes
+				</Button>
+				<Button handler={() => onChoice()}>No</Button>
+			</div>
+		</div>
+	)
+}
+export const MessageEmptyName = ({ onChoice }) => {
+	return (
+		<div className={styles.modalContent}>
+			<h1>Please enter your name!</h1>
+
+			<Button handler={() => onChoice()}>OK</Button>
+		</div>
+	)
+}
+export const MessageNameTaken = ({ onChoice }) => {
+	return (
+		<div className={styles.modalContent}>
+			<h1>This name is already taken!</h1>
+			<p> Please choose another.</p>
+
+			<Button handler={() => onChoice()}>OK</Button>
+		</div>
+	)
+}
+
+ConfirmDeleteUser.propTypes = {
+	name: PropTypes.string,
+	onChoice: PropTypes.func
+}
+MessageNameTaken.propTypes = {
+	onChoice: PropTypes.func
+}
+
+MessageEmptyName.propTypes = {
+	onChoice: PropTypes.func
+}
 
 ConfirmExit.propTypes = {
 	onChoice: PropTypes.func
@@ -81,6 +125,3 @@ EndGame.propTypes = {
 	onChoice: PropTypes.func,
 	cardsToShow: PropTypes.number
 }
-//  <p>Are you sure you want exit?</p>
-//  <button onClick={()=>alert('OK')}>OK</button>
-//  <button onClick={()=>alert('Nei')}>Nei</button>

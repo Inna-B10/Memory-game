@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Button } from '../../components/Button'
+import stylesButton from '../../components/Button.module.css'
 import { Card } from '../../components/Card'
 import { Timer } from '../../components/Timer'
 import { Modal } from '../../components/modal/Modal'
@@ -17,7 +18,7 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const location = useLocation()
 	const { countCards } = location.state || {}
-	const cardsToShow = countCards ?? 2
+	const cardsToShow = countCards ?? 6
 
 	let level = 'easy'
 
@@ -27,20 +28,8 @@ export function GamePage() {
 	const [matchedCards, setMatchedCards] = useState([])
 	const [countMoves, setCountMoves] = useState(0)
 	const updateUser = useUserStore(state => state.updateUser)
-	const { startGame, stopGame, isGameOn, gameDuration } = useGameStore()
+	const { startGame, stopGame, resetTimer, isGameOn, gameDuration } = useGameStore()
 	const { showModal, closeModal } = useModalStore()
-
-	const openChoice = () => {
-		showModal(<ConfirmExit onChoice={closeModal} />)
-	}
-	const openEndGame = useCallback(() => {
-		showModal(
-			<EndGame
-				cardsToShow={cardsToShow}
-				onChoice={closeModal}
-			/>
-		)
-	}, [showModal, closeModal, cardsToShow])
 
 	switch (cardsToShow) {
 		case 6:
@@ -56,20 +45,42 @@ export function GamePage() {
 			level = 'expert'
 			break
 	}
-
 	/* ------------------------------- Load Images ------------------------------ */
 	//[TODO] errors fetching images
-	useEffect(() => {
-		async function fetchImages() {
-			setLoading(true)
-			const images = await GetImages(cardsToShow)
-			setCards(images)
-			setLoading(false)
-		}
-		fetchImages()
+	const fetchImages = useCallback(async () => {
+		setLoading(true)
+		const images = await GetImages(cardsToShow)
+		setCards(images)
+		setLoading(false)
 	}, [cardsToShow])
 
-	//[TODO] modal message
+	useEffect(() => {
+		fetchImages()
+	}, [fetchImages])
+	/* ------------------------------- Reset Game ------------------------------- */
+	const resetGame = useCallback(() => {
+		setSelectedCards([])
+		setMatchedCards([])
+		setCountMoves(0)
+		stopGame()
+		resetTimer()
+		fetchImages()
+	}, [stopGame, resetTimer, fetchImages])
+	/* --------------------------------- Modals --------------------------------- */
+	const openChoice = () => {
+		showModal(<ConfirmExit onChoice={closeModal} />)
+	}
+	const openEndGame = useCallback(() => {
+		showModal(
+			<EndGame
+				cardsToShow={cardsToShow}
+				onChoice={() => {
+					closeModal(), resetGame()
+				}}
+			/>
+		)
+	}, [showModal, closeModal, cardsToShow, resetGame])
+
 	/* ---------------------- Checking For Game Completion ---------------------- */
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
@@ -78,7 +89,6 @@ export function GamePage() {
 			setTimeout(() => {
 				openEndGame()
 			}, 1200)
-			//[todo] reset game
 		}
 	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, openEndGame])
 
@@ -95,7 +105,9 @@ export function GamePage() {
 			}
 			//if first card
 			if (selectedCards.length === 0) {
-				isGameOn === false && startGame()
+				if (!isGameOn) {
+					startGame()
+				}
 				setSelectedCards([{ id: card.id, name: card.name }])
 			}
 			// if second card
@@ -107,10 +119,9 @@ export function GamePage() {
 				])
 				//if cards do match
 				if (selectedCards[0].name === card.name) {
-					setTimeout(
-						() => setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name]),
-						550
-					)
+					setTimeout(() => {
+						setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name])
+					}, 550)
 					setTimeout(() => setSelectedCards([]), 560)
 					// if cards do not match
 				} else {
@@ -124,9 +135,14 @@ export function GamePage() {
 	console.log(cardsToShow)
 	return (
 		<>
-			<h1 className='textCenter'>Level: {level}</h1>
-			<div>
-				<Button handler={openChoice}>Exit</Button>
+			<div className={styles.levelTitleContainer}>
+				<h1 className='textCenter'>Level: {level}</h1>
+				<Button
+					handler={openChoice}
+					className={stylesButton.exitButton}
+				>
+					Exit
+				</Button>
 				<Modal />
 			</div>
 			<div className={styles.statisticContainer}>

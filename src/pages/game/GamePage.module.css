@@ -31,6 +31,10 @@
   grid-template-columns: repeat(5, 1fr);
 }
 
+.levelTitleContainer {
+  position: relative;
+}
+
 .statisticContainer {
   display: flex;
   justify-content: space-between;

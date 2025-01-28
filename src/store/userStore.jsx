@@ -1,22 +1,24 @@
 import { create } from 'zustand'
+import { MessageEmptyName, MessageNameTaken } from '../components/modal/modalContent'
+import { useModalStore } from './modalStore'
 
 export const useUserStore = create(set => ({
 	allUsers: JSON.parse(localStorage.getItem('memoryGame')) || [],
 	currentUser: JSON.parse(localStorage.getItem('currentUserMG')) || null,
 
-	//[TODO] modal messages
 	/* ------------------------------ Add New User ------------------------------ */
 	addNewUser: newUser => {
 		set(state => {
+			const { showModal, closeModal } = useModalStore.getState()
 			//check if input not empty
 			if (newUser.userName.trim() === '') {
-				alert('Please enter your name!')
+				showModal(<MessageEmptyName onChoice={closeModal} />)
 				return state
 			}
 			//check if userName already exits
 			const isNameTaken = state.allUsers.some(user => user.userName === newUser.userName.trim())
 			if (isNameTaken) {
-				alert('This name is already taken! Please choose another.')
+				showModal(<MessageNameTaken onChoice={closeModal} />)
 				return state
 			}
 			//add new user
