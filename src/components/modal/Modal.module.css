@@ -9,22 +9,22 @@
 }
 
 .modalContent {
+  padding: 0.8rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
   border-radius: 0.5rem;
   background-color: #fff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1),
     0px 2px 4px rgba(0, 0, 0, 0.06);
-  font-weight: bold;
-  font-size: 1.2rem;
 }
 
-.modalContent h1 {
-  font-size: 1.5rem;
+p.titleMessage {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .buttonsContainer {
@@ -34,8 +34,25 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
+
+@media (min-width: 768px) {
+
   .modalContent {
-    width: 90%;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .modalContent h1 {
+    font-size: 1.5rem;
+  }
+
+  p.titleMessage {
+    font-size: 1.5rem;
+  }
+
+  .buttonsContainer > button {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
   }
 }

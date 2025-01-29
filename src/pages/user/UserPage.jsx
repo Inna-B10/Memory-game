@@ -61,10 +61,12 @@ export function UserPage() {
 				</Button>
 			</div>
 			{/* -------------------------------- User Info ------------------------------- */}
-			<h1 className='textCenter'>
-				{currentUser.icon}
-				{currentUser.userName}
-			</h1>
+
+			<div className={styles.userName}>
+				<span className='avatarSize'>{currentUser.icon}</span>
+				<h1>{currentUser.userName}</h1>
+			</div>
+
 			<section className={styles.userInfo}>
 				<UserProfile user={currentUser} />
 			</section>

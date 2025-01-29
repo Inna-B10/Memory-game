@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../../store/gameStore'
 import { useUserStore } from '../../store/userStore'
 import { Button } from '../Button'
+import stylesButton from '../Button.module.css'
 import styles from './Modal.module.css'
 
 export const EndGame = ({ cardsToShow, onChoice }) => {
 	const navigate = useNavigate()
 	return (
 		<div className={styles.modalContent}>
-			<h1>You have matched all the cards!</h1>
+			<p className='textCenter'>You have matched all the cards!</p>
 			<p>Your choice:</p>
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
 						navigate('/user'), onChoice()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Change level
 				</Button>
@@ -23,6 +25,7 @@ export const EndGame = ({ cardsToShow, onChoice }) => {
 					handler={() => {
 						navigate('/'), onChoice()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Change player
 				</Button>
@@ -30,6 +33,7 @@ export const EndGame = ({ cardsToShow, onChoice }) => {
 					handler={() => {
 						navigate('/game', { state: { countCards: cardsToShow } }), onChoice()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Play again
 				</Button>
@@ -42,13 +46,14 @@ export const ConfirmExit = ({ onChoice }) => {
 	const navigate = useNavigate()
 	return (
 		<div className={styles.modalContent}>
-			<h1>If you exit now, your current score will be lost! </h1>
+			<p className={styles.titleMessage}>If you exit now, your current score will be lost! </p>
 			<p>Your choice:</p>
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
 						resetTimer(), navigate('/user'), onChoice()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Change level
 				</Button>
@@ -56,6 +61,7 @@ export const ConfirmExit = ({ onChoice }) => {
 					handler={() => {
 						resetTimer(), navigate('/'), onChoice()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Change player
 				</Button>
@@ -63,6 +69,7 @@ export const ConfirmExit = ({ onChoice }) => {
 					handler={() => {
 						onChoice(), continueGame()
 					}}
+					className={stylesButton.smallButton}
 				>
 					Continue game
 				</Button>
@@ -76,10 +83,10 @@ export const ConfirmDeleteUser = ({ name, onChoice }) => {
 
 	return (
 		<div className={styles.modalContent}>
-			<h1>
+			<p className='textCenter'>
 				Are you sure you want to delete <br />
 				{name}?
-			</h1>
+			</p>
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
@@ -96,7 +103,7 @@ export const ConfirmDeleteUser = ({ name, onChoice }) => {
 export const MessageEmptyName = ({ onChoice }) => {
 	return (
 		<div className={styles.modalContent}>
-			<h1>Please enter your name!</h1>
+			<p className='textCenter'>Please enter your name!</p>
 
 			<Button handler={() => onChoice()}>OK</Button>
 		</div>
@@ -105,7 +112,7 @@ export const MessageEmptyName = ({ onChoice }) => {
 export const MessageNameTaken = ({ onChoice }) => {
 	return (
 		<div className={styles.modalContent}>
-			<h1>This name is already taken!</h1>
+			<p className='textCenter'>This name is already taken!</p>
 			<p> Please choose another.</p>
 
 			<Button handler={() => onChoice()}>OK</Button>

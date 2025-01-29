@@ -7,7 +7,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 10px 0 10px;
+  padding: 20px 20px 0 20px;
+}
+
+.userName {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.userName h1 {
+  font-size: 2rem;
+  color: rgba(153, 51, 204, 0.8);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 1px #ccc,
+    -1px -1px 1px #333,
+    1px -1px 1px #333,
+    -1px 1px 1px #333;
 }
 
 .userInfo {
@@ -15,10 +33,28 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  margin-top: -10px;
 }
 
 .levelButtonsContainer {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: space-evenly;
+}
+
+/* ---------------------------------- Media --------------------------------- */
+@media (max-width: 480px) {
+  .levelButtonsContainer {
+    margin: 1.2rem 0 0.4rem 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .funcBtnContainer {
+    padding: 10px 10px 0 10px;
+  }
+
+  .userName {
+    margin: 20px 0;
+  }
 }

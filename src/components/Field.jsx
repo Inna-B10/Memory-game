@@ -10,7 +10,7 @@ export function Field({ label, placeholder, name, value, onChange, onKeyDown, ..
 				placeholder={placeholder}
 				value={value}
 				name={name}
-				maxLength={30}
+				maxLength={10}
 				onChange={onChange}
 				onKeyDown={onKeyDown}
 				label={label}

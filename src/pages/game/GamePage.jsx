@@ -27,7 +27,7 @@ export function GamePage() {
 	const [selectedCards, setSelectedCards] = useState([])
 	const [matchedCards, setMatchedCards] = useState([])
 	const [countMoves, setCountMoves] = useState(0)
-	const updateUser = useUserStore(state => state.updateUser)
+	const { updateUser, currentUser } = useUserStore()
 	const { startGame, stopGame, resetTimer, isGameOn, gameDuration } = useGameStore()
 	const { showModal, closeModal } = useModalStore()
 
@@ -135,19 +135,23 @@ export function GamePage() {
 	console.log(cardsToShow)
 	return (
 		<>
-			<div className={styles.levelTitleContainer}>
-				<h1 className='textCenter'>Level: {level}</h1>
+			<div className={styles.userNameContainer}>
 				<Button
 					handler={() => {
 						openChoice(), stopGame()
 					}}
-					className={stylesButton.exitButton}
+					className={stylesButton.smallButton}
 				>
 					Exit
 				</Button>
+				<h1>
+					<span className='avatarSize'>{currentUser.icon}</span>
+					{currentUser.userName}
+				</h1>
 				<Modal />
 			</div>
 			<div className={styles.statisticContainer}>
+				<div>Level: {level}</div>
 				<div>Moves: {countMoves}</div>
 				<Timer />
 			</div>
