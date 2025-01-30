@@ -6,7 +6,7 @@ import stylesButton from '../../components/Button.module.css'
 import { Card } from '../../components/Card'
 import { Timer } from '../../components/Timer'
 import { Modal } from '../../components/modal/Modal'
-import { ConfirmExit, EndGame } from '../../components/modal/modalContent'
+import { ConfirmExit, EndGame } from '../../components/modal/ModalContent'
 import { useGameStore } from '../../store/gameStore'
 import { useModalStore } from '../../store/modalStore'
 import { useUserStore } from '../../store/userStore'
@@ -86,9 +86,10 @@ export function GamePage() {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
 			stopGame()
 			updateUser(countMoves, level, gameDuration)
+
 			setTimeout(() => {
 				openEndGame()
-			}, 1200)
+			}, 1000)
 		}
 	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, openEndGame])
 

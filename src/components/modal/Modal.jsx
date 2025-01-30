@@ -1,9 +1,11 @@
 import { AnimatePresence, m } from 'framer-motion'
+import { useGameStore } from '../../store/gameStore'
 import { useModalStore } from '../../store/modalStore'
 import styles from './Modal.module.css'
 
 export function Modal() {
 	const { isOpen, content, closeModal } = useModalStore()
+	const { continueGame } = useGameStore()
 
 	return (
 		<AnimatePresence>
@@ -13,7 +15,9 @@ export function Modal() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					onClick={closeModal}
+					onClick={() => {
+						closeModal(), continueGame()
+					}}
 				>
 					<m.div
 						className={styles.modalContent}

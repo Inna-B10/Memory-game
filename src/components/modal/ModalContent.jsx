@@ -118,13 +118,28 @@ export const MessageNameTaken = ({ onChoice }) => {
 		</div>
 	)
 }
+export const NewScore = ({ onChoice, newScore }) => {
+	return (
+		<div className={styles.modalContent}>
+			<p className={styles.titleMessage}>Congratulation!</p>
+			<p> Your new score for this level is {newScore}</p>
+
+			<Button handler={() => onChoice()}>OK</Button>
+		</div>
+	)
+}
 
 ConfirmDeleteUser.propTypes = {
 	name: PropTypes.string,
 	onChoice: PropTypes.func
 }
+
 MessageNameTaken.propTypes = {
 	onChoice: PropTypes.func
+}
+NewScore.propTypes = {
+	onChoice: PropTypes.func,
+	newScore: PropTypes.number
 }
 
 MessageEmptyName.propTypes = {

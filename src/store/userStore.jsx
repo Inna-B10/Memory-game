@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { MessageEmptyName, MessageNameTaken } from '../components/modal/modalContent'
+import { MessageEmptyName, MessageNameTaken, NewScore } from '../components/modal/ModalContent'
 import { useModalStore } from './modalStore'
+import { useRatingStore } from './ratingStore'
 
 export const useUserStore = create(set => ({
 	allUsers: JSON.parse(localStorage.getItem('memoryGame')) || [],
@@ -10,6 +11,7 @@ export const useUserStore = create(set => ({
 	addNewUser: newUser => {
 		set(state => {
 			const { showModal, closeModal } = useModalStore.getState()
+
 			//check if input not empty
 			if (newUser.userName.trim() === '') {
 				showModal(<MessageEmptyName onChoice={closeModal} />)
@@ -43,6 +45,8 @@ export const useUserStore = create(set => ({
 	/* ------------------------------- Update User ------------------------------ */
 	updateUser: (moves, level, time) => {
 		set(state => {
+			const { updateRating } = useRatingStore.getState()
+			const { showModal, closeModal } = useModalStore.getState()
 			const newScore = Math.round((time / moves) * 10) / 10
 
 			//find the current user
@@ -53,6 +57,13 @@ export const useUserStore = create(set => ({
 
 			//update data for level if new result is better
 			if (currentLevelResult.score === 0 || newScore < currentLevelResult.score) {
+				showModal(
+					<NewScore
+						onChoice={closeModal}
+						newScore={newScore}
+					/>
+				)
+				updateRating(level, currentUser.userName, time, moves, newScore)
 				const updatedLevelResult = {
 					time,
 					moves,

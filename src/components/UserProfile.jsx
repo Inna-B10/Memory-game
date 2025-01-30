@@ -7,7 +7,7 @@ export function UserProfile({ user }) {
 
 	return (
 		<>
-			<h2 className='textCenter'>Best results:</h2>
+			<h2 className='textCenter'>Your results:</h2>
 			<div className={styles.resultsContainer}>
 				<div className={styles.levelResults}>
 					<h3>Level Easy</h3>
