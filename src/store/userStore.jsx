@@ -68,7 +68,7 @@ export const useUserStore = create(set => ({
 				//create an updated user
 				const updatedUser = {
 					...currentUser,
-					totalGames: currentUser.totalGames + 1,
+					// totalGames: currentUser.totalGames + 1,
 					results: updatedResults
 				}
 
@@ -84,7 +84,6 @@ export const useUserStore = create(set => ({
 				return { allUsers: updatedAllUsers, currentUser: updatedUser }
 			}
 			//if the result is not better
-			console.log('New score is not better. new:', newScore, currentLevelResult)
 			return state
 		})
 	},

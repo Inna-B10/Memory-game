@@ -39,7 +39,7 @@ export function HomePage() {
 		const newUser = {
 			userName: name.trim(),
 			icon: avatar,
-			totalGames: 0,
+			// totalGames: 0,
 			results: {
 				easy: { time: 0, moves: 0, score: 0 },
 				middle: { time: 0, moves: 0, score: 0 },

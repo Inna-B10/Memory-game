@@ -10,8 +10,7 @@ export const EndGame = ({ cardsToShow, onChoice }) => {
 	const navigate = useNavigate()
 	return (
 		<div className={styles.modalContent}>
-			<p className='textCenter'>You have matched all the cards!</p>
-			<p>Your choice:</p>
+			<p className={styles.titleMessage}>You have matched all the cards!</p>
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {

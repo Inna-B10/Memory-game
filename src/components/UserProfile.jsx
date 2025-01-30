@@ -1,24 +1,44 @@
 // import styles from './UserProfile.module.css'
 import PropTypes from 'prop-types'
+import styles from './UserProfile.module.css'
 
 export function UserProfile({ user }) {
 	const result = user.results
+
 	return (
 		<>
 			<h2 className='textCenter'>Best results:</h2>
-			<div>
-				Level easy: time:{result.easy.time} moves:{result.easy.moves}
+			<div className={styles.resultsContainer}>
+				<div className={styles.levelResults}>
+					<h3>Level Easy</h3>
+					<ul>
+						<li>time: {result.easy.time}</li>
+						<li> moves: {result.easy.moves}</li>
+					</ul>
+				</div>
+				<div className={styles.levelResults}>
+					<h3>Level Middle</h3>
+					<ul>
+						<li>time: {result.middle.time}</li>
+						<li>moves: {result.middle.moves}</li>
+					</ul>
+				</div>
+				<div className={styles.levelResults}>
+					<h3>Level Hard</h3>{' '}
+					<ul>
+						<li>time: {result.hard.time}</li>
+						<li>moves: {result.hard.moves}</li>
+					</ul>
+				</div>
+				<div className={styles.levelResults}>
+					<h3>Level Expert</h3>
+					<ul>
+						<li>time: {result.expert.time}</li>
+						<li>moves: {result.expert.moves}</li>
+					</ul>
+				</div>
 			</div>
-			<div>
-				Level middle: time:{result.middle.time} moves:{result.middle.moves}
-			</div>
-			<div>
-				Level hard: time:{result.hard.time} moves:{result.hard.moves}
-			</div>
-			<div>
-				Level expert: time:{result.expert.time} moves:{result.expert.moves}
-			</div>
-			<div>Total games: {user.totalGames}</div>
+			{/* <div>Total games: {user.totalGames}</div> */}
 		</>
 	)
 }
@@ -44,7 +64,7 @@ UserProfile.propTypes = {
 				time: PropTypes.number,
 				moves: PropTypes.number
 			}).isRequired
-		}),
-		totalGames: PropTypes.number.isRequired
+		})
+		// totalGames: PropTypes.number.isRequired
 	}).isRequired
 }

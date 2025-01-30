@@ -8,7 +8,6 @@
   padding: 1em;
   justify-items: center;
   align-items: center;
-  /* background-color: #8000ff */
 }
 
 .grid img {
@@ -49,6 +48,9 @@
 }
 
 .userNameContainer h1 {
+  display: inline;
+  margin-left: 5px;
+  vertical-align: bottom;
   text-wrap: nowrap;
   font-size: 2rem;
   color: rgba(153, 51, 204, 0.8);
@@ -68,6 +70,12 @@
 }
 
 @media only screen and (min-width: 550px) {
+  .userNameContainer {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .grid img {
     border-radius: 1.3rem;
   }

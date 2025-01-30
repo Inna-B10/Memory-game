@@ -99,7 +99,7 @@ export function GamePage() {
 			if (
 				selectedCards.find(item => item.id === card.id) ||
 				matchedCards.includes(card.name) ||
-				selectedCards.length == 2
+				selectedCards.length == 6
 			) {
 				return
 			}
@@ -132,7 +132,6 @@ export function GamePage() {
 		},
 		[selectedCards, matchedCards, isGameOn, startGame]
 	)
-	console.log(cardsToShow)
 	return (
 		<>
 			<div className={styles.userNameContainer}>
@@ -144,10 +143,10 @@ export function GamePage() {
 				>
 					Exit
 				</Button>
-				<h1>
+				<div className='flex flexCenter'>
 					<span className='avatarSize'>{currentUser.icon}</span>
-					{currentUser.userName}
-				</h1>
+					<h1>{currentUser.userName}</h1>
+				</div>
 				<Modal />
 			</div>
 			<div className={styles.statisticContainer}>
