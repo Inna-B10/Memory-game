@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Button } from '../../components/Button'
 import stylesButton from '../../components/Button.module.css'
@@ -30,6 +30,13 @@ export function GamePage() {
 	const { updateUser, currentUser } = useUserStore()
 	const { startGame, stopGame, resetTimer, isGameOn, gameDuration } = useGameStore()
 	const { showModal, closeModal } = useModalStore()
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (!currentUser) {
+			navigate('/')
+		}
+	}, [currentUser, navigate])
 
 	switch (cardsToShow) {
 		case 6:

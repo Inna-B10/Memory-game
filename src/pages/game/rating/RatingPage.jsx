@@ -1,8 +1,8 @@
 import { RatingRow } from '../../../components/RatingRow'
 import { useRatingStore } from '../../../store/ratingStore'
-import styles from './RantingPage.module.css'
+import styles from './RatingPage.module.css'
 
-export function RantingPage() {
+export function RatingPage() {
 	const { rating } = useRatingStore()
 
 	return (

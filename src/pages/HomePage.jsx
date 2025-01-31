@@ -73,7 +73,7 @@ export function HomePage() {
 				</>
 			)}
 			<Button
-				handler={() => navigate('/game/ranting')}
+				handler={() => navigate('/game/rating')}
 				className={stylesButton.smallButton}
 			>
 				Best score results

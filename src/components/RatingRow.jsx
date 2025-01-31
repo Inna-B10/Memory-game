@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from '../pages/game/ranting/RantingPage.module.css'
+import styles from '../pages/game/rating/RatingPage.module.css'
 
 export function RatingRow({ level, data }) {
 	return (
