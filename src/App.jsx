@@ -3,7 +3,7 @@ import { HomePage } from './pages/HomePage'
 import { LayoutRoot } from './pages/LayoutRoot'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { GamePage } from './pages/game/GamePage'
-import { ResultPage } from './pages/game/result/ResultPage'
+import { RantingPage } from './pages/game/ranting/RantingPage'
 import { UserPage } from './pages/user/UserPage'
 
 export default function App() {
@@ -27,8 +27,8 @@ export default function App() {
 						element={<GamePage />}
 					/>
 					<Route
-						path='/game/result'
-						element={<ResultPage />}
+						path='/game/ranting'
+						element={<RantingPage />}
 					/>
 					<Route
 						path='*'

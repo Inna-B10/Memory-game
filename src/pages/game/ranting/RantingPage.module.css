@@ -1,0 +1,28 @@
+.ratingContainer {
+  padding: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  line-height: 3;
+  align-items: center;
+  /* justify-items: center; */
+}
+
+.titleColRow {
+  font-weight: bold;
+  font-size: 16px;
+
+
+}
+
+.borderLeft {
+  border-left: 1px dashed rgba(72, 19, 127, 0.5);
+  text-align: center;
+
+}
+
+.borderBottom {
+  border-bottom: 1px dashed #48137F;
+}

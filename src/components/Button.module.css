@@ -30,7 +30,7 @@
   width: calc(100% + 2px);
   height: 45%;
   background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
-  border-radius: 10px 10px 2px 2px;
+  border-radius: 6px 6px 2px 2px;
 }
 
 .selected {

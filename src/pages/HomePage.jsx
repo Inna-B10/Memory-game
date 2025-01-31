@@ -14,15 +14,12 @@ export function HomePage() {
 	const [newAvatar, setNewAvatar] = useState('🍎')
 
 	const { allUsers, addNewUser, currentUser, setCurrentUser } = useUserStore()
-
-	console.log('users:', allUsers, 'current:', currentUser)
-	console.log('new avatar ', newAvatar)
 	const navigate = useNavigate()
 
 	/* ------------------------------- Select User ------------------------------ */
 	function selectExistUser(user) {
 		setCurrentUser(user)
-		navigate('/user') //go to userPage
+		navigate('/user')
 	}
 
 	/* -------------------------------- New User -------------------------------- */
@@ -75,6 +72,12 @@ export function HomePage() {
 					</section>
 				</>
 			)}
+			<Button
+				handler={() => navigate('/game/ranting')}
+				className={stylesButton.smallButton}
+			>
+				Best score results
+			</Button>
 			<h2 className='textCenter'> Create new player:</h2>
 			<section className={styles.newUserContainer}>
 				<Field
