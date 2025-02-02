@@ -3,8 +3,8 @@ import { create } from 'zustand'
 export const useRatingStore = create(set => ({
 	rating: JSON.parse(localStorage.getItem('ratingMG')) || [],
 
-	/* --------------------------------- Update --------------------------------- */
-	updateRating: (level, userName, time, moves) => {
+	/* ------------------------------ Update Rating ----------------------------- */
+	updateRating: (level, avatar, userName, time, moves) => {
 		set(state => {
 			//check if ratingMG and current level exist in localStorage
 			const currentLevelMoves = state.rating[level]?.moves ? state.rating[level].moves : 0
@@ -16,7 +16,7 @@ export const useRatingStore = create(set => ({
 				(moves === currentLevelMoves && time < currentLevelTime)
 			) {
 				const updatedLevel = {
-					userName: userName,
+					userName: `${avatar} ${userName}`,
 					time: time,
 					moves: moves
 				}
@@ -37,10 +37,12 @@ export const useRatingStore = create(set => ({
 			return state
 		})
 	},
-	deleteFromRating: name => {
+	/* --------------------------- Delete From Rating --------------------------- */
+	deleteFromRating: (icon, name) => {
+		console.log(icon, name)
 		set(state => {
 			const updatedRating = Object.fromEntries(
-				Object.entries(state.rating).filter(([_, data]) => data.userName !== name)
+				Object.entries(state.rating).filter(([_, data]) => data.userName !== `${icon} ${name}`)
 			)
 			localStorage.setItem('ratingMG', JSON.stringify(updatedRating))
 			return { rating: updatedRating }

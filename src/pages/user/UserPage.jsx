@@ -34,9 +34,10 @@ export function UserPage() {
 	if (!currentUser) return <div>Loading...</div>
 
 	/* ------------------------------- Delete User ------------------------------ */
-	function deleteCurrentUser(name) {
+	function deleteCurrentUser(avatar, name) {
 		showModal(
 			<ConfirmDeleteUser
+				icon={avatar}
 				name={name}
 				onChoice={closeModal}
 			/>
@@ -56,7 +57,7 @@ export function UserPage() {
 				</Button>
 				<Button
 					type='button'
-					handler={() => deleteCurrentUser(currentUser.userName)}
+					handler={() => deleteCurrentUser(currentUser.icon, currentUser.userName)}
 					className={stylesButton.smallButton}
 				>
 					Delete player

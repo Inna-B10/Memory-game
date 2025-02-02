@@ -30,7 +30,7 @@ export const useUserStore = create(set => ({
 		})
 	},
 	/* ------------------------------- Delete User ------------------------------ */
-	deleteUser: name => {
+	deleteUser: (icon, name) => {
 		set(state => {
 			const updatedUsers = state.allUsers.filter(user => user.userName !== name)
 			localStorage.setItem('memoryGame', JSON.stringify(updatedUsers))
@@ -40,7 +40,7 @@ export const useUserStore = create(set => ({
 
 			//delete from rating
 			const { deleteFromRating } = useRatingStore.getState()
-			deleteFromRating(name)
+			deleteFromRating(icon, name)
 
 			return { allUsers: updatedUsers, currentUser: null }
 		})
@@ -71,7 +71,7 @@ export const useUserStore = create(set => ({
 						time={time}
 					/>
 				)
-				updateRating(level, currentUser.userName, time, moves)
+				updateRating(level, currentUser.icon, currentUser.userName, time, moves)
 				const updatedLevelResult = {
 					time,
 					moves

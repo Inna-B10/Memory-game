@@ -76,7 +76,7 @@ export const ConfirmExit = ({ onChoice }) => {
 		</div>
 	)
 }
-export const ConfirmDeleteUser = ({ name, onChoice }) => {
+export const ConfirmDeleteUser = ({ icon, name, onChoice }) => {
 	const navigate = useNavigate()
 	const { deleteUser } = useUserStore()
 
@@ -84,12 +84,12 @@ export const ConfirmDeleteUser = ({ name, onChoice }) => {
 		<div className={styles.modalContent}>
 			<p className='textCenter'>
 				Are you sure you want to delete <br />
-				{name}?
+				{icon} {name}?
 			</p>
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
-						deleteUser(name), onChoice(), navigate('/')
+						deleteUser(icon, name), onChoice(), navigate('/')
 					}}
 				>
 					Yes
@@ -132,6 +132,7 @@ export const NewScore = ({ onChoice, moves, time }) => {
 }
 
 ConfirmDeleteUser.propTypes = {
+	icon: PropTypes.string,
 	name: PropTypes.string,
 	onChoice: PropTypes.func
 }
