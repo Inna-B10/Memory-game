@@ -68,7 +68,17 @@ export function UserPage() {
 			</div>
 
 			<section className={styles.userInfo}>
-				<UserProfile user={currentUser} />
+				<h2 className='textCenter'>Your results:</h2>
+				<div className={styles.resultsContainer}>
+					{Object.entries(currentUser.results).map(([level, { time, moves }]) => (
+						<UserProfile
+							key={level}
+							level={level}
+							time={time}
+							moves={moves}
+						/>
+					))}
+				</div>
 			</section>
 			{/* ----------------------------- Level Selection ---------------------------- */}
 			<h2 className='textCenter'>Choose level:</h2>

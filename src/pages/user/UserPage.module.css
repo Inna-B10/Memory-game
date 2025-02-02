@@ -36,6 +36,14 @@
   margin-top: -10px;
 }
 
+.resultsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  padding: 0 5px;
+  font-size: 0.8rem;
+}
+
 .levelButtonsContainer {
   margin-top: 1.5rem;
   display: flex;
@@ -59,6 +67,17 @@
 
     h1 {
       font-size: 3rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .resultsContainer {
+    font-size: unset;
+    padding: 1rem;
+
+    h3 {
+      font-size: 1rem;
     }
   }
 }

@@ -1,10 +1,10 @@
-.resultsContainer {
+/* .resultsContainer {
   display: flex;
   justify-content: space-evenly;
   gap: 1rem;
   padding: 0 5px;
   font-size: 0.8rem;
-}
+} */
 
 .levelResults {
   text-align: left;
@@ -16,7 +16,7 @@
   }
 }
 
-@media only screen and (min-width: 450px) {
+/* @media only screen and (min-width: 450px) {
   .resultsContainer {
     font-size: unset;
     padding: 1rem;
@@ -25,4 +25,4 @@
       font-size: 1rem;
     }
   }
-}
+} */
