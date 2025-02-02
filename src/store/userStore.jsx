@@ -38,6 +38,10 @@ export const useUserStore = create(set => ({
 			//delete current user
 			localStorage.removeItem('currentUserMG')
 
+			//delete from rating
+			const { deleteFromRating } = useRatingStore.getState()
+			deleteFromRating(name)
+
 			return { allUsers: updatedUsers, currentUser: null }
 		})
 	},

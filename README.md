@@ -14,3 +14,11 @@ npm install framer-motion
 npm install prop-types
 npm i zustand
 ```
+
+### ToDo:
+
+- [ ] Capital letter on Rating Page for level's name
+- [ ] icons: emoji+cup
+- [ ] reset Rating + localStorage
+- [ ] different cards/folders
+- [ ] music?

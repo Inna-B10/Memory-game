@@ -36,5 +36,14 @@ export const useRatingStore = create(set => ({
 			//if new result is not better than stored in localStorage
 			return state
 		})
+	},
+	deleteFromRating: name => {
+		set(state => {
+			const updatedRating = Object.fromEntries(
+				Object.entries(state.rating).filter(([_, data]) => data.userName !== name)
+			)
+			localStorage.setItem('ratingMG', JSON.stringify(updatedRating))
+			return { rating: updatedRating }
+		})
 	}
 }))
