@@ -102,7 +102,7 @@ export const ConfirmDeleteUser = ({ name, onChoice }) => {
 export const MessageEmptyName = ({ onChoice }) => {
 	return (
 		<div className={styles.modalContent}>
-			<p className='textCenter'>Please enter your name!</p>
+			<p className='textCenter'>Please enter your name and/or choose avatar!</p>
 
 			<Button handler={() => onChoice()}>OK</Button>
 		</div>

@@ -1,28 +1,14 @@
-/* .resultsContainer {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 1rem;
-  padding: 0 5px;
-  font-size: 0.8rem;
-} */
-
 .levelResults {
   text-align: left;
 
   > h3 {
+    display: inline;
     font-size: 0.8rem;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
-}
 
-/* @media only screen and (min-width: 450px) {
-  .resultsContainer {
-    font-size: unset;
-    padding: 1rem;
-
-    h3 {
-      font-size: 1rem;
-    }
+  span {
+    vertical-align: middle;
   }
-} */
+}

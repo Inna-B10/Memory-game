@@ -152,14 +152,15 @@ export function GamePage() {
 					Exit
 				</Button>
 				<div className='flex flexCenter'>
-					<span className='avatarSize'>{currentUser?.icon}</span>
-					<h1>{currentUser?.userName}</h1>
+					<h1>
+						<span className='avatarSize'>{currentUser?.icon}</span> {currentUser?.userName}
+					</h1>
 				</div>
 				<Modal />
 			</div>
 			<div className={styles.statisticContainer}>
-				<div>Level: {level}</div>
-				<div>Moves: {countMoves}</div>
+				<div>🎓 Level: {level}</div>
+				<div>➰ Moves: {countMoves}</div>
 				<Timer />
 			</div>
 			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>

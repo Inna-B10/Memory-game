@@ -13,7 +13,7 @@ export const useUserStore = create(set => ({
 			const { showModal, closeModal } = useModalStore.getState()
 
 			//check if input not empty
-			if (newUser.userName.trim() === '') {
+			if (newUser.userName.trim() === '' || newUser.icon.trim() === '') {
 				showModal(<MessageEmptyName onChoice={closeModal} />)
 				return state
 			}

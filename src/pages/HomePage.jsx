@@ -1,6 +1,6 @@
 import cn from 'clsx'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button.jsx'
 import stylesButton from '../components/Button.module.css'
 import { Field } from '../components/Field.jsx'
@@ -11,7 +11,7 @@ import styles from './HomePage.module.css'
 
 export function HomePage() {
 	const [newName, setNewName] = useState('')
-	const [newAvatar, setNewAvatar] = useState('🍎')
+	const [newAvatar, setNewAvatar] = useState('')
 
 	const { allUsers, addNewUser, currentUser, setCurrentUser } = useUserStore()
 	const navigate = useNavigate()
@@ -47,7 +47,7 @@ export function HomePage() {
 		addNewUser(newUser)
 
 		setNewName('') //Clear input field
-		setNewAvatar('🍎') // Reset avatar selection
+		setNewAvatar('') // Reset avatar selection
 	}
 
 	return (
@@ -72,12 +72,18 @@ export function HomePage() {
 					</section>
 				</>
 			)}
-			<Button
-				handler={() => navigate('/game/rating')}
-				className={stylesButton.smallButton}
+
+			<Link
+				className={styles.cup}
+				to={'/game/rating'}
+				title='Best score'
 			>
-				Best score results
-			</Button>
+				<img
+					src='/cup.svg'
+					alt='vinner cup'
+				/>
+			</Link>
+
 			<h2 className='textCenter'> Create new player:</h2>
 			<section className={styles.newUserContainer}>
 				<Field
@@ -92,7 +98,7 @@ export function HomePage() {
 				/>
 				<div>Choose your avatar:</div>
 				<div className={styles.buttonsContainer}>
-					{avatarOptions.map(emoji => (
+					{avatarOptions.slice(-5).map(emoji => (
 						<Button
 							key={emoji}
 							className={cn(stylesButton.avatarButtons, {

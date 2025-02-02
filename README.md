@@ -18,7 +18,9 @@ npm i zustand
 ### ToDo:
 
 - [ ] Capital letter on Rating Page for level's name
-- [ ] icons: emoji+cup
+- [x] icons: emoji+cup
 - [ ] reset Rating + localStorage
 - [ ] different cards/folders
 - [ ] music?
+- [ ] fonts
+- [ ] project structure

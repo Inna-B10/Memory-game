@@ -7,6 +7,7 @@ import { Modal } from '../../components/modal/Modal.jsx'
 import { ConfirmDeleteUser } from '../../components/modal/ModalContent.jsx'
 import { levels } from '../../constants.js'
 import { useModalStore } from '../../store/modalStore.jsx'
+import { useRatingStore } from '../../store/ratingStore.jsx'
 import { useUserStore } from '../../store/userStore.jsx'
 import styles from './UserPage.module.css'
 
@@ -14,6 +15,7 @@ export function UserPage() {
 	const { currentUser, setCurrentUser } = useUserStore()
 	const { showModal, closeModal } = useModalStore.getState()
 	const navigate = useNavigate()
+	const { rating } = useRatingStore()
 
 	/* ---------------------------- If User Undefined --------------------------- */
 	useEffect(() => {
@@ -63,21 +65,31 @@ export function UserPage() {
 			{/* -------------------------------- User Info ------------------------------- */}
 
 			<div className={styles.userName}>
-				<span className='avatarSize'>{currentUser.icon}</span>
-				<h1>{currentUser.userName}</h1>
+				<h1>
+					<span className='avatarSize'>{currentUser.icon}</span> {currentUser.userName}
+				</h1>
 			</div>
 
 			<section className={styles.userInfo}>
 				<h2 className='textCenter'>Your results:</h2>
 				<div className={styles.resultsContainer}>
-					{Object.entries(currentUser.results).map(([level, { time, moves }]) => (
-						<UserProfile
-							key={level}
-							level={level}
-							time={time}
-							moves={moves}
-						/>
-					))}
+					{Object.entries(currentUser.results).map(([level, { time, moves }]) => {
+						//check if user is in rank table
+						let cup = false
+						if (rating[level]?.userName === currentUser.userName) {
+							cup = true
+						}
+
+						return (
+							<UserProfile
+								key={level}
+								level={level}
+								time={time}
+								moves={moves}
+								cup={cup}
+							/>
+						)
+					})}
 				</div>
 			</section>
 			{/* ----------------------------- Level Selection ---------------------------- */}

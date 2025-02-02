@@ -18,5 +18,5 @@ export function Timer() {
 		return () => clearInterval(timer)
 	}, [isGameOn, incrementTime])
 
-	return <div>Timer: {formatTime(gameDuration)}</div>
+	return <div>⌛ Timer: {formatTime(gameDuration)}</div>
 }

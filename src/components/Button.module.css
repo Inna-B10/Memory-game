@@ -25,7 +25,7 @@
 .avatarButtons::after {
   content: '';
   position: absolute;
-  top: -1px;
+  top: -2px;
   left: -1px;
   width: calc(100% + 2px);
   height: 45%;
