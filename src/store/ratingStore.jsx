@@ -4,23 +4,27 @@ export const useRatingStore = create(set => ({
 	rating: JSON.parse(localStorage.getItem('ratingMG')) || [],
 
 	/* --------------------------------- Update --------------------------------- */
-	updateRating: (level, userName, time, moves, score) => {
+	updateRating: (level, userName, time, moves) => {
 		set(state => {
 			//check if ratingMG and current level exist in localStorage
-			const currentLevelScore = state.rating[level]?.score ? state.rating[level].score : 0
+			const currentLevelMoves = state.rating[level]?.moves ? state.rating[level].moves : 0
+			const currentLevelTime = state.rating[level]?.time ? state.rating[level].time : 0
 
-			if (score < currentLevelScore || currentLevelScore === 0) {
-				const updatedLevelScore = {
+			if (
+				currentLevelMoves === 0 ||
+				moves < currentLevelMoves ||
+				(moves === currentLevelMoves && time < currentLevelTime)
+			) {
+				const updatedLevel = {
 					userName: userName,
 					time: time,
-					moves: moves,
-					score: score
+					moves: moves
 				}
 
 				//update level best score
 				const updatedRating = {
 					...state.rating,
-					[level]: updatedLevelScore
+					[level]: updatedLevel
 				}
 
 				//save new value in localStorage
@@ -29,7 +33,7 @@ export const useRatingStore = create(set => ({
 				return { rating: updatedRating }
 			}
 
-			//if new score > score in localStorage
+			//if new result is not better than stored in localStorage
 			return state
 		})
 	}

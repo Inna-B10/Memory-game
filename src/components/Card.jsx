@@ -27,7 +27,7 @@ export function Card({ card, turnCard, matchedCards, selectedCards, isGameOn }) 
 			>
 				<m.div
 					className={styles.cardFront}
-					whileHover={!isMatched && !isSelected ? { scale: 1.05 } : undefined}
+					whileHover={!isMatched && !isSelected ? { scale: 1.05 } : ''}
 				>
 					<img
 						src='/back.png'

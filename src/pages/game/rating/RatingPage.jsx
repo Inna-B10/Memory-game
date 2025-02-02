@@ -1,13 +1,15 @@
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../../../components/Button'
 import { RatingRow } from '../../../components/RatingRow'
 import { useRatingStore } from '../../../store/ratingStore'
 import styles from './RatingPage.module.css'
 
 export function RatingPage() {
 	const { rating } = useRatingStore()
-
+	const navigate = useNavigate()
 	return (
 		<>
-			<h1 className='textCenter'>Rating</h1>
+			<h1 className='textCenter'>Best Results:</h1>
 			{rating && (
 				<div className={styles.ratingContainer}>
 					<span className={`${styles.titleColRow} ${styles.borderBottom}`}>Level</span>
@@ -20,9 +22,6 @@ export function RatingPage() {
 					<span className={`${styles.titleColRow} ${styles.borderLeft} ${styles.borderBottom}`}>
 						Moves
 					</span>
-					<span className={`${styles.titleColRow} ${styles.borderLeft} ${styles.borderBottom}`}>
-						Score
-					</span>
 
 					{Object.entries(rating).map(([level, data]) => (
 						<RatingRow
@@ -33,6 +32,9 @@ export function RatingPage() {
 					))}
 				</div>
 			)}
+			<div className='textCenter'>
+				<Button handler={() => navigate('/')}>Home</Button>
+			</div>
 		</>
 	)
 }

@@ -24,7 +24,6 @@ RatingRow.propTypes = {
 	data: PropTypes.shape({
 		userName: PropTypes.string,
 		time: PropTypes.number,
-		moves: PropTypes.number,
-		score: PropTypes.number
+		moves: PropTypes.number
 	}).isRequired
 }

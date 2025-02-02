@@ -38,10 +38,10 @@ export function HomePage() {
 			icon: avatar,
 			// totalGames: 0,
 			results: {
-				easy: { time: 0, moves: 0, score: 0 },
-				middle: { time: 0, moves: 0, score: 0 },
-				hard: { time: 0, moves: 0, score: 0 },
-				expert: { time: 0, moves: 0, score: 0 }
+				easy: { time: 0, moves: 0 },
+				middle: { time: 0, moves: 0 },
+				hard: { time: 0, moves: 0 },
+				expert: { time: 0, moves: 0 }
 			}
 		}
 		addNewUser(newUser)

@@ -47,7 +47,6 @@ export const useUserStore = create(set => ({
 		set(state => {
 			const { updateRating } = useRatingStore.getState()
 			const { showModal, closeModal } = useModalStore.getState()
-			const newScore = Math.round((time / moves) * 10) / 10
 
 			//find the current user
 			const currentUser = state.currentUser
@@ -56,18 +55,22 @@ export const useUserStore = create(set => ({
 			const currentLevelResult = currentUser.results[level]
 
 			//update data for level if new result is better
-			if (currentLevelResult.score === 0 || newScore < currentLevelResult.score) {
+			if (
+				currentLevelResult.moves === 0 ||
+				moves < currentLevelResult.moves ||
+				(moves === currentLevelResult.moves && time < currentLevelResult.time)
+			) {
 				showModal(
 					<NewScore
 						onChoice={closeModal}
-						newScore={newScore}
+						moves={moves}
+						time={time}
 					/>
 				)
-				updateRating(level, currentUser.userName, time, moves, newScore)
+				updateRating(level, currentUser.userName, time, moves)
 				const updatedLevelResult = {
 					time,
-					moves,
-					score: newScore
+					moves
 				}
 
 				//update user results

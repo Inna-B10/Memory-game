@@ -118,11 +118,13 @@ export const MessageNameTaken = ({ onChoice }) => {
 		</div>
 	)
 }
-export const NewScore = ({ onChoice, newScore }) => {
+export const NewScore = ({ onChoice, moves, time }) => {
 	return (
 		<div className={styles.modalContent}>
 			<p className={styles.titleMessage}>Congratulation!</p>
-			<p> Your new score for this level is {newScore}</p>
+			<p>
+				You finished the game in {moves} moves within {time} seconds
+			</p>
 
 			<Button handler={() => onChoice()}>OK</Button>
 		</div>
@@ -139,7 +141,8 @@ MessageNameTaken.propTypes = {
 }
 NewScore.propTypes = {
 	onChoice: PropTypes.func,
-	newScore: PropTypes.number
+	moves: PropTypes.number,
+	time: PropTypes.number
 }
 
 MessageEmptyName.propTypes = {

@@ -152,8 +152,8 @@ export function GamePage() {
 					Exit
 				</Button>
 				<div className='flex flexCenter'>
-					<span className='avatarSize'>{currentUser.icon}</span>
-					<h1>{currentUser.userName}</h1>
+					<span className='avatarSize'>{currentUser?.icon}</span>
+					<h1>{currentUser?.userName}</h1>
 				</div>
 				<Modal />
 			</div>
