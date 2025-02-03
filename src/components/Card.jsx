@@ -20,6 +20,7 @@ export function Card({ card, turnCard, matchedCards, selectedCards, isGameOn }) 
 		>
 			<m.div
 				className={cn(styles.cardInner, { [styles.flipped]: isSelected || isMatched })}
+				initial={{ rotateY: 0 }}
 				animate={{
 					rotateY: isSelected || isMatched ? 180 : 0
 				}}

@@ -115,7 +115,6 @@ export function GamePage() {
 				(countMoves === prevResultsRef.current[level].moves &&
 					gameDuration < prevResultsRef.current[level].time)
 
-			console.log('isNewRecord (before updateUser):', isNewRecord)
 			//Create message and save it in ref
 			messageRef.current = isNewRecord ? (
 				<NewScore
@@ -123,12 +122,10 @@ export function GamePage() {
 					time={gameDuration}
 				/>
 			) : null
-			console.log('message before updateUser:', messageRef.current)
 
 			updateUser(countMoves, level, gameDuration)
 
 			setTimeout(() => {
-				console.log('message in timeout:', messageRef.current) // Должно остаться неизменным
 				openEndGame(messageRef.current)
 			}, 1000)
 		}
@@ -141,7 +138,7 @@ export function GamePage() {
 			if (
 				selectedCards.find(item => item.id === card.id) ||
 				matchedCards.includes(card.name) ||
-				selectedCards.length == 6
+				selectedCards.length == 2
 			) {
 				return
 			}

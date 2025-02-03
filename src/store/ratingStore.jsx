@@ -39,7 +39,6 @@ export const useRatingStore = create(set => ({
 	},
 	/* --------------------------- Delete From Rating --------------------------- */
 	deleteFromRating: (icon, name) => {
-		console.log(icon, name)
 		set(state => {
 			const updatedRating = Object.fromEntries(
 				Object.entries(state.rating).filter(([_, data]) => data.userName !== `${icon} ${name}`)
