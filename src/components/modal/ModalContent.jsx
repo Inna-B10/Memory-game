@@ -6,11 +6,13 @@ import { Button } from '../Button'
 import stylesButton from '../Button.module.css'
 import styles from './Modal.module.css'
 
-export const EndGame = ({ cardsToShow, onChoice }) => {
+export const EndGame = ({ message, cardsToShow, onChoice }) => {
 	const navigate = useNavigate()
 	return (
 		<div className={styles.modalContent}>
-			<p className={styles.titleMessage}>You have matched all the cards!</p>
+			{/* if new record */}
+			{message ? message : <p className={styles.titleMessage}>You have matched all the cards!</p>}
+
 			<div className={styles.buttonsContainer}>
 				<Button
 					handler={() => {
@@ -118,16 +120,14 @@ export const MessageNameTaken = ({ onChoice }) => {
 		</div>
 	)
 }
-export const NewScore = ({ onChoice, moves, time }) => {
+export const NewScore = ({ moves, time }) => {
 	return (
-		<div className={styles.modalContent}>
+		<>
 			<p className={styles.titleMessage}>Congratulation!</p>
 			<p>
 				You finished the game in {moves} moves within {time} seconds
 			</p>
-
-			<Button handler={() => onChoice()}>OK</Button>
-		</div>
+		</>
 	)
 }
 
@@ -141,7 +141,6 @@ MessageNameTaken.propTypes = {
 	onChoice: PropTypes.func
 }
 NewScore.propTypes = {
-	onChoice: PropTypes.func,
 	moves: PropTypes.number,
 	time: PropTypes.number
 }
@@ -156,6 +155,7 @@ ConfirmExit.propTypes = {
 }
 
 EndGame.propTypes = {
+	message: PropTypes.object,
 	onChoice: PropTypes.func,
 	cardsToShow: PropTypes.number
 }

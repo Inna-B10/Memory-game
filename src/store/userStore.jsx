@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { MessageEmptyName, MessageNameTaken, NewScore } from '../components/modal/ModalContent'
+import { MessageEmptyName, MessageNameTaken } from '../components/modal/ModalContent'
 import { useModalStore } from './modalStore'
 import { useRatingStore } from './ratingStore'
 
@@ -64,13 +64,6 @@ export const useUserStore = create(set => ({
 				moves < currentLevelResult.moves ||
 				(moves === currentLevelResult.moves && time < currentLevelResult.time)
 			) {
-				showModal(
-					<NewScore
-						onChoice={closeModal}
-						moves={moves}
-						time={time}
-					/>
-				)
 				updateRating(level, currentUser.icon, currentUser.userName, time, moves)
 				const updatedLevelResult = {
 					time,

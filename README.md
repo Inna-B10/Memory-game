@@ -17,8 +17,9 @@ npm i zustand
 
 ### ToDo:
 
-- [ ] Capital letter on Rating Page for level's name
+- [x] Capital letter on Rating Page for level's name
 - [x] icons: emoji+cup
+- [x] bug with messages at the end of game + new score
 - [ ] reset Rating + localStorage
 - [ ] different cards/folders
 - [ ] music?

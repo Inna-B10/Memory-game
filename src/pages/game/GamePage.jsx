@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Button } from '../../components/Button'
@@ -6,7 +6,7 @@ import stylesButton from '../../components/Button.module.css'
 import { Card } from '../../components/Card'
 import { Timer } from '../../components/Timer'
 import { Modal } from '../../components/modal/Modal'
-import { ConfirmExit, EndGame } from '../../components/modal/ModalContent'
+import { ConfirmExit, EndGame, NewScore } from '../../components/modal/ModalContent'
 import { useGameStore } from '../../store/gameStore'
 import { useModalStore } from '../../store/modalStore'
 import { useUserStore } from '../../store/userStore'
@@ -77,25 +77,59 @@ export function GamePage() {
 	const openChoice = () => {
 		showModal(<ConfirmExit onChoice={closeModal} />)
 	}
-	const openEndGame = useCallback(() => {
-		showModal(
-			<EndGame
-				cardsToShow={cardsToShow}
-				onChoice={() => {
-					closeModal(), resetGame()
-				}}
-			/>
-		)
-	}, [showModal, closeModal, cardsToShow, resetGame])
+	const openEndGame = useCallback(
+		message => {
+			showModal(
+				<EndGame
+					message={message}
+					cardsToShow={cardsToShow}
+					onChoice={() => {
+						closeModal(), resetGame()
+					}}
+				/>
+			)
+		},
+		[showModal, closeModal, cardsToShow, resetGame]
+	)
 
 	/* ---------------------- Checking For Game Completion ---------------------- */
+
+	const prevResultsRef = useRef(null) // store old results
+	const messageRef = useRef(null) // store message
+
+	//if prevResultsRef is empty,
+	//save old results ONLY ONCE (at first render)
+	useEffect(() => {
+		if (!prevResultsRef.current && currentUser?.results)
+			prevResultsRef.current = { ...currentUser.results }
+	})
+
 	useEffect(() => {
 		if (matchedCards.length && matchedCards.length === cards.length / 2) {
 			stopGame()
+
+			//check if is new record based on prevResultsRef
+			const isNewRecord =
+				prevResultsRef.current[level].moves === 0 ||
+				countMoves < prevResultsRef.current[level].moves ||
+				(countMoves === prevResultsRef.current[level].moves &&
+					gameDuration < prevResultsRef.current[level].time)
+
+			console.log('isNewRecord (before updateUser):', isNewRecord)
+			//Create message and save it in ref
+			messageRef.current = isNewRecord ? (
+				<NewScore
+					moves={countMoves}
+					time={gameDuration}
+				/>
+			) : null
+			console.log('message before updateUser:', messageRef.current)
+
 			updateUser(countMoves, level, gameDuration)
 
 			setTimeout(() => {
-				openEndGame()
+				console.log('message in timeout:', messageRef.current) // Должно остаться неизменным
+				openEndGame(messageRef.current)
 			}, 1000)
 		}
 	}, [matchedCards, cards, updateUser, countMoves, level, stopGame, gameDuration, openEndGame])
