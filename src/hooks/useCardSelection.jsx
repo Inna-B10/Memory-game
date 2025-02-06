@@ -32,7 +32,7 @@ export function useCardSelection({ startGame, stopGame, resetTimer, isGameOn, fe
 					}, 550)
 					setTimeout(() => setSelectedCards([]), 560)
 				} else {
-					setTimeout(() => setSelectedCards([]), 800)
+					setTimeout(() => setSelectedCards([]), 700)
 				}
 			}
 		},

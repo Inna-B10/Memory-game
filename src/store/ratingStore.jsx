@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { useUserStore } from './userStore'
 
 export const useRatingStore = create(set => ({
-	rating: JSON.parse(localStorage.getItem('ratingMG')) || [],
+	rating: JSON.parse(localStorage.getItem('ratingMG')) || {},
 
 	/* ------------------------------ Update Rating ----------------------------- */
 	updateRating: (level, avatar, userName, time, moves) => {

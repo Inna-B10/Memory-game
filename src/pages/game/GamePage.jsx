@@ -18,12 +18,6 @@ import styles from './GamePage.module.css'
 const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 
 export function GamePage() {
-	const location = useLocation()
-	const { countCards } = location.state || {}
-	const cardsToShow = countCards ?? 6
-
-	let level = 'easy'
-
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(false)
 	const { updateUser, currentUser } = useUserStore()
@@ -37,29 +31,19 @@ export function GamePage() {
 		}
 	}, [currentUser, navigate])
 
-	switch (cardsToShow) {
-		case 6:
-			level = 'easy'
-			break
-		case 8:
-			level = 'middle'
-			break
-		case 10:
-			level = 'hard'
-			break
-		case 15:
-			level = 'expert'
-			break
-	}
+	/* ------------------------------ Chosen Level ------------------------------ */
+	const { countCards = 6 } = useLocation().state || {}
+	const levels = { 6: 'easy', 8: 'middle', 10: 'hard', 15: 'expert' }
+	const level = levels[countCards] || 'easy'
 
 	/* ------------------------------- Load Images ------------------------------ */
 	//[TODO] errors fetching images
 	const fetchImages = useCallback(async () => {
 		setLoading(true)
-		const images = await GetImages(cardsToShow)
+		const images = await GetImages(countCards)
 		setCards(images)
 		setLoading(false)
-	}, [cardsToShow])
+	}, [countCards])
 
 	useEffect(() => {
 		fetchImages()
@@ -83,14 +67,14 @@ export function GamePage() {
 			showModal(
 				<EndGame
 					message={message}
-					cardsToShow={cardsToShow}
+					cardsToShow={countCards}
 					onChoice={() => {
 						closeModal(), resetGame()
 					}}
 				/>
 			)
 		},
-		[showModal, closeModal, cardsToShow, resetGame]
+		[showModal, closeModal, countCards, resetGame]
 	)
 
 	/* ---------------------- Checking For Game Completion ---------------------- */
