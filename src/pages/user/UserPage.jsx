@@ -4,7 +4,7 @@ import { Button } from '../../components/Button.jsx'
 import stylesButton from '../../components/Button.module.css'
 import { UserProfile } from '../../components/UserProfile.jsx'
 import { Modal } from '../../components/modal/Modal.jsx'
-import { ConfirmDeleteUser } from '../../components/modal/ModalContent.jsx'
+import { ConfirmDeleting } from '../../components/modal/ModalContent.jsx'
 import { levels } from '../../constants.js'
 import { useModalStore } from '../../store/modalStore.jsx'
 import { useRatingStore } from '../../store/ratingStore.jsx'
@@ -13,7 +13,7 @@ import styles from './UserPage.module.css'
 
 export function UserPage() {
 	const { currentUser, setCurrentUser } = useUserStore()
-	const { showModal, closeModal } = useModalStore.getState()
+	const { showModal, closeModal } = useModalStore()
 	const navigate = useNavigate()
 	const { rating } = useRatingStore()
 
@@ -36,7 +36,8 @@ export function UserPage() {
 	/* ------------------------------- Delete User ------------------------------ */
 	function deleteCurrentUser(avatar, name) {
 		showModal(
-			<ConfirmDeleteUser
+			<ConfirmDeleting
+				type='user'
 				icon={avatar}
 				name={name}
 				onChoice={closeModal}
@@ -77,7 +78,7 @@ export function UserPage() {
 					{Object.entries(currentUser.results).map(([level, { time, moves }]) => {
 						//check if user is in rank table
 						let cup = false
-						if (rating[level]?.userName === currentUser.userName) {
+						if (rating[level]?.userName === `${currentUser.icon} ${currentUser.userName}`) {
 							cup = true
 						}
 

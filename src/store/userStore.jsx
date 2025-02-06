@@ -50,7 +50,6 @@ export const useUserStore = create(set => ({
 	updateUser: (moves, level, time) => {
 		set(state => {
 			const { updateRating } = useRatingStore.getState()
-			const { showModal, closeModal } = useModalStore.getState()
 
 			//find the current user
 			const currentUser = state.currentUser

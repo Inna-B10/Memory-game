@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { useUserStore } from './userStore'
 
 export const useRatingStore = create(set => ({
 	rating: JSON.parse(localStorage.getItem('ratingMG')) || [],
@@ -45,6 +46,23 @@ export const useRatingStore = create(set => ({
 			)
 			localStorage.setItem('ratingMG', JSON.stringify(updatedRating))
 			return { rating: updatedRating }
+		})
+	},
+	/* ------------------------------ Reset Rating ------------------------------ */
+	resetRating: () => {
+		set(() => {
+			const { allUsers } = useUserStore.getState()
+
+			allUsers.forEach(user => {
+				Object.keys(user.results).forEach(level => {
+					user.results[level] = { time: 0, moves: 0 }
+				})
+			})
+
+			localStorage.removeItem('ratingMG')
+			localStorage.setItem('memoryGame', JSON.stringify(allUsers))
+
+			return { allUsers: allUsers, rating: null }
 		})
 	}
 }))

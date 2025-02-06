@@ -7,7 +7,6 @@
   grid-template-rows: repeat(5, minmax(0, 1fr));
   line-height: 3;
   align-items: center;
-  /* justify-items: center; */
 }
 
 .titleColRow {
@@ -25,4 +24,11 @@
 
 .borderBottom {
   border-bottom: 1px dashed #48137F;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
