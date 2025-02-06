@@ -7,6 +7,7 @@ import { Card } from '../../components/Card'
 import { Timer } from '../../components/Timer'
 import { Modal } from '../../components/modal/Modal'
 import { ConfirmExit, EndGame } from '../../components/modal/ModalContent'
+import { useCardSelection } from '../../hooks/useCardSelection'
 import { useGameCompletion } from '../../hooks/useGameCompletion'
 import { useGameStore } from '../../store/gameStore'
 import { useModalStore } from '../../store/modalStore'
@@ -25,9 +26,6 @@ export function GamePage() {
 
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(false)
-	const [selectedCards, setSelectedCards] = useState([])
-	const [matchedCards, setMatchedCards] = useState([])
-	const [countMoves, setCountMoves] = useState(0)
 	const { updateUser, currentUser } = useUserStore()
 	const { startGame, stopGame, resetTimer, isGameOn, gameDuration } = useGameStore()
 	const { showModal, closeModal } = useModalStore()
@@ -53,6 +51,7 @@ export function GamePage() {
 			level = 'expert'
 			break
 	}
+
 	/* ------------------------------- Load Images ------------------------------ */
 	//[TODO] errors fetching images
 	const fetchImages = useCallback(async () => {
@@ -65,15 +64,16 @@ export function GamePage() {
 	useEffect(() => {
 		fetchImages()
 	}, [fetchImages])
-	/* ------------------------------- Reset Game ------------------------------- */
-	const resetGame = useCallback(() => {
-		setSelectedCards([])
-		setMatchedCards([])
-		setCountMoves(0)
-		stopGame()
-		resetTimer()
-		fetchImages()
-	}, [stopGame, resetTimer, fetchImages])
+
+	/* ---------------- Processing Clicks On Cards And Reset Game --------------- */
+	const { selectedCards, matchedCards, countMoves, turnCard, resetGame } = useCardSelection({
+		startGame,
+		stopGame,
+		resetTimer,
+		isGameOn,
+		fetchImages
+	})
+
 	/* --------------------------------- Modals --------------------------------- */
 	const openChoice = () => {
 		showModal(<ConfirmExit onChoice={closeModal} />)
@@ -106,46 +106,6 @@ export function GamePage() {
 		currentUser
 	})
 
-	/* ------------------------- Processing Card Clicks ------------------------- */
-	const turnCard = useCallback(
-		card => {
-			//if already in selectedCards/matchedCards or open 2 cards -> return
-			if (
-				selectedCards.find(item => item.id === card.id) ||
-				matchedCards.includes(card.name) ||
-				selectedCards.length == 2
-			) {
-				return
-			}
-			//if first card
-			if (selectedCards.length === 0) {
-				if (!isGameOn) {
-					startGame()
-				}
-				setSelectedCards([{ id: card.id, name: card.name }])
-			}
-			// if second card
-			else {
-				setCountMoves(countMoves => countMoves + 1)
-				setSelectedCards(prevSelectedCards => [
-					...prevSelectedCards,
-					{ id: card.id, name: card.name }
-				])
-				//if cards do match
-				if (selectedCards[0].name === card.name) {
-					setTimeout(() => {
-						setMatchedCards(prevMatchedCards => [...prevMatchedCards, card.name])
-					}, 550)
-					setTimeout(() => setSelectedCards([]), 560)
-					// if cards do not match
-				} else {
-					//flipp cards back
-					setTimeout(() => setSelectedCards([]), 800)
-				}
-			}
-		},
-		[selectedCards, matchedCards, isGameOn, startGame]
-	)
 	return (
 		<>
 			<div className={styles.userNameContainer}>

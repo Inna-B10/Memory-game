@@ -46,7 +46,7 @@ export function useGameCompletion({
 
 			setTimeout(() => {
 				openEndGame(messageRef.current)
-			}, 1000)
+			}, 800)
 		}
 	}, [matchedCards, cards, stopGame, updateUser, countMoves, level, gameDuration, openEndGame])
 }
