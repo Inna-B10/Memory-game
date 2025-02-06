@@ -20,6 +20,7 @@ const getGridClass = length => (length >= 20 ? 'grid_col_5' : 'grid_col_4')
 export function GamePage() {
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState(null)
 	const { updateUser, currentUser } = useUserStore()
 	const { startGame, stopGame, resetTimer, isGameOn, gameDuration } = useGameStore()
 	const { showModal, closeModal } = useModalStore()
@@ -37,12 +38,21 @@ export function GamePage() {
 	const level = levels[countCards] || 'easy'
 
 	/* ------------------------------- Load Images ------------------------------ */
-	//[TODO] errors fetching images
 	const fetchImages = useCallback(async () => {
 		setLoading(true)
-		const images = await GetImages(countCards)
-		setCards(images)
-		setLoading(false)
+		setError(null)
+		try {
+			const images = await GetImages(countCards)
+			if (images.length === 0) {
+				throw new Error('No images available')
+			}
+			setCards(images)
+		} catch (error) {
+			console.error('Error fetching images:', error)
+			setError('Failed to load images')
+		} finally {
+			setLoading(false)
+		}
 	}, [countCards])
 
 	useEffect(() => {
@@ -90,8 +100,19 @@ export function GamePage() {
 		currentUser
 	})
 
+	/* -------------------------- If No Images Fetched -------------------------- */
+	if (error || (!loading && !error && cards.length === 0)) {
+		return (
+			<section className='errorMessage'>
+				<p>{error ? error : 'No cards found!'}</p>
+				<Button handler={() => navigate('/')}>Back home</Button>
+			</section>
+		)
+	}
+
 	return (
 		<>
+			{loading && <p>Loading...</p>}
 			<div className={styles.userNameContainer}>
 				<Button
 					handler={() => {

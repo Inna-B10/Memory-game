@@ -1,17 +1,27 @@
 import { shuffleArray } from '../utils/shuffleArray'
 
-//[!] countCards: 6-easy level, 8-middle, 10-hard, 15-expert
 export async function GetImages(countCard) {
-	const images = Object.keys(import.meta.glob('/public/cards/*.{png,jpeg,jpg,svg,webp,gif}')).map(
-		path => path.replace('/public', '')
-	)
+	let images = []
+	try {
+		images = Object.keys(import.meta.glob('/public/cards/*.{png,jpeg,jpg,svg,webp,gif}')).map(
+			path => path.replace('/public', '')
+		)
 
-	//[TODO] refactor code, only fetching images here!
+		if (images.length === 0) {
+			throw new Error('Images not found')
+		}
+	} catch (error) {
+		console.error('Error while getting images:', error)
+		return []
+	}
+
+	/* --------------------- Shuffle Array With Images Path --------------------- */
 	let shuffledPaths = shuffleArray(images)
 	if (countCard < images.length) {
 		shuffledPaths = shuffledPaths.slice(0, countCard)
 	}
 
+	/* ---------------------- Create Array Of Card Pairs --------------------- */
 	let pairsArray = shuffledPaths.flatMap(item => {
 		const filename = item.split('/').pop() //get full filename
 		const id = filename.split('.')[0] //extract name without extension

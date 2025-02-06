@@ -55,7 +55,7 @@ export function RatingPage() {
 						navigate('/'), closeModal()
 					}}
 				>
-					Back to home
+					Back home
 				</Button>
 				<Button handler={resetRatingMG}>Reset rating</Button>
 			</div>
