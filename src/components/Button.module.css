@@ -75,12 +75,11 @@
   padding: 0.2em 0.4em 0.3em;
 }
 
-/* ---------------------------------- Meda ---------------------------------- */
+/* ---------------------------------- Media ---------------------------------- */
 @media (min-width: 768px) {
   .regularButton {
     font-size: 1.2rem;
     font-weight: bold;
-    /* border-radius: 12px; */
   }
 
   .smallButton {

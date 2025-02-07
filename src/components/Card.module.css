@@ -1,7 +1,3 @@
-.card {
-  /* border: 2px solid transparent; */
-}
-
 .cardContainer {
   cursor: pointer;
   perspective: 1000px;
@@ -25,7 +21,6 @@
 
 .cardFront {
   background-color: #93C7D2;
-  /* border-radius: 2rem; */
 }
 
 .cardBack {
@@ -38,7 +33,6 @@
 .matchedCards {
   cursor: none;
   filter: brightness(0.9);
-  /* box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.3); */
 }
 
 .selectedCards {

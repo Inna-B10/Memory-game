@@ -36,7 +36,6 @@ export function HomePage() {
 		const newUser = {
 			userName: name.trim(),
 			icon: avatar,
-			// totalGames: 0,
 			results: {
 				easy: { time: 0, moves: 0 },
 				middle: { time: 0, moves: 0 },
@@ -52,6 +51,7 @@ export function HomePage() {
 
 	return (
 		<div className={styles.homePage}>
+			{/* ---------------------------------- Modal --------------------------------- */}
 			<Modal />
 			{allUsers.length > 0 && (
 				<>

@@ -29,6 +29,7 @@ export const useUserStore = create(set => ({
 			return { allUsers: updatedUsers }
 		})
 	},
+
 	/* ------------------------------- Delete User ------------------------------ */
 	deleteUser: (icon, name) => {
 		set(state => {

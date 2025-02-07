@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
-import { RatingRow } from '../../../components/RatingRow'
 import { Modal } from '../../../components/modal/Modal.jsx'
 import { ConfirmDeleting } from '../../../components/modal/ModalContent'
 import { useModalStore } from '../../../store/modalStore.jsx'
 import { useRatingStore } from '../../../store/ratingStore'
 import styles from './RatingPage.module.css'
+import { RatingRow } from './RatingRow.jsx'
 
 export function RatingPage() {
 	const { sortedRatings, getSortedRatings } = useRatingStore()

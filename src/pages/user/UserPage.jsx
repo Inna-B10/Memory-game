@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button.jsx'
 import stylesButton from '../../components/Button.module.css'
+import Loader from '../../components/Loader.jsx'
 import { UserProfile } from '../../components/UserProfile.jsx'
 import { Modal } from '../../components/modal/Modal.jsx'
 import { ConfirmDeleting } from '../../components/modal/ModalContent.jsx'
@@ -29,9 +30,8 @@ export function UserPage() {
 		}
 	}, [currentUser, navigate, setCurrentUser])
 
-	//[TODO] loader
 	// Render fallback if currentUser is not loaded
-	if (!currentUser) return <div>Loading...</div>
+	if (!currentUser) return <Loader />
 
 	/* ------------------------------- Delete User ------------------------------ */
 	function deleteCurrentUser(avatar, name) {

@@ -35,7 +35,7 @@ p.titleMessage {
   align-items: center;
 }
 
-
+/* ---------------------------------- Media ---------------------------------- */
 @media (min-width: 768px) {
 
   .modalContent {

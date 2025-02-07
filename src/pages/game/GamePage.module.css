@@ -69,7 +69,14 @@
   font-size: smaller;
 }
 
-@media only screen and (min-width: 550px) {
+/* ---------------------------------- Media ---------------------------------- */
+@media only screen and (min-width: 480px) {
+  .grid img {
+    border-radius: 0.9rem;
+  }
+}
+
+@media only screen and (min-width: 600px) {
   .userNameContainer {
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -77,9 +84,10 @@
   }
 
   .grid img {
-    border-radius: 1.3rem;
+    border-radius: 1.2rem;
   }
 }
+
 
 @media only screen and (min-width: 768px) {
   .grid img {

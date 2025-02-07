@@ -42,7 +42,6 @@ export function Card({ card, turnCard, matchedCards, selectedCards, isGameOn }) 
 						name={card.name}
 						alt=''
 						className={cn(
-							styles.card,
 							{ [styles.selectedCards]: !isGameOn },
 							{ [styles.matchedCards]: isMatched },
 							{ [styles.selectedCards]: isSelected }

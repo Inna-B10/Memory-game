@@ -7,6 +7,7 @@ import { Button } from '../Button'
 import stylesButton from '../Button.module.css'
 import styles from './Modal.module.css'
 
+/* ----------------------------- Game Completed ----------------------------- */
 export const EndGame = ({ message, cardsToShow, onChoice }) => {
 	const navigate = useNavigate()
 	return (
@@ -43,6 +44,8 @@ export const EndGame = ({ message, cardsToShow, onChoice }) => {
 		</div>
 	)
 }
+
+/* ------------------------------- ConfirmExit ------------------------------ */
 export const ConfirmExit = ({ onChoice }) => {
 	const { continueGame, resetTimer } = useGameStore()
 	const navigate = useNavigate()
@@ -79,6 +82,8 @@ export const ConfirmExit = ({ onChoice }) => {
 		</div>
 	)
 }
+
+/* ----------------------------- ConfirmDeleting ---------------------------- */
 export const ConfirmDeleting = ({ icon, name, onChoice, type }) => {
 	const navigate = useNavigate()
 	const isUser = type === 'user'
@@ -107,6 +112,8 @@ export const ConfirmDeleting = ({ icon, name, onChoice, type }) => {
 		</div>
 	)
 }
+
+/* ---------------------------- MessageEmptyName ---------------------------- */
 export const MessageEmptyName = ({ onChoice }) => {
 	return (
 		<div className={styles.modalContent}>
@@ -116,6 +123,8 @@ export const MessageEmptyName = ({ onChoice }) => {
 		</div>
 	)
 }
+
+/* ---------------------------- MessageNameTaken ---------------------------- */
 export const MessageNameTaken = ({ onChoice }) => {
 	return (
 		<div className={styles.modalContent}>
@@ -126,6 +135,8 @@ export const MessageNameTaken = ({ onChoice }) => {
 		</div>
 	)
 }
+
+/* -------------------------------- NewScore -------------------------------- */
 export const NewScore = ({ moves, time }) => {
 	return (
 		<>

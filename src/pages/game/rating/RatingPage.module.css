@@ -12,14 +12,11 @@
 .titleColRow {
   font-weight: bold;
   font-size: 16px;
-
-
 }
 
 .borderLeft {
   border-left: 1px dashed rgba(72, 19, 127, 0.5);
   text-align: center;
-
 }
 
 .borderBottom {

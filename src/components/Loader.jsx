@@ -10,7 +10,7 @@ const dotsVariant = {
 
 export default function Loader() {
 	return (
-		<div style={{ display: 'flex', gap: 8 }}>
+		<div style={{ display: 'flex', gap: 8, justifyContent: 'center', alignItems: 'center' }}>
 			{[0, 1, 2].map(i => (
 				<m.div
 					key={i}
