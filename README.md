@@ -20,8 +20,11 @@ npm i zustand
 - [x] Capital letter on Rating Page for level's name
 - [x] icons: emoji+cup
 - [x] bug with messages at the end of game + new score
-- [ ] reset Rating + localStorage
-- [ ] different cards/folders
-- [ ] music?
+- [x] reset Rating + localStorage
+- [x] fetch errors
+- [x] fix levels order on RatingPage
+- [x] loader
+- [x] convert images
+- [ ] meta description
 - [ ] fonts
 - [ ] project structure
