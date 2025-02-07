@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from '../pages/game/rating/RatingPage.module.css'
+import styles from './RatingPage.module.css'
 
 export function RatingRow({ level, data }) {
 	const levelName = level.charAt(0).toUpperCase() + level.slice(1)

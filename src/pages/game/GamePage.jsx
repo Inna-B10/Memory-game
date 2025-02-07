@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GetImages } from '../../api/GetImages'
 import { Button } from '../../components/Button'
@@ -117,6 +118,11 @@ export function GamePage() {
 
 	return (
 		<>
+			<Helmet>
+				<title>
+					Level: {level} | {currentUser.userName}{' '}
+				</title>
+			</Helmet>
 			<div className={styles.userNameContainer}>
 				<Button
 					handler={() => {

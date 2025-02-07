@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { Modal } from '../../../components/modal/Modal.jsx'
 import { ConfirmDeleting } from '../../../components/modal/ModalContent'
+import { siteTitle } from '../../../constants.js'
 import { useModalStore } from '../../../store/modalStore.jsx'
 import { useRatingStore } from '../../../store/ratingStore'
 import styles from './RatingPage.module.css'
@@ -30,6 +32,9 @@ export function RatingPage() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Rating | {siteTitle}</title>
+			</Helmet>
 			<h1 className='textCenter'>Best Results:</h1>
 			{/* ---------------------------------- Modal --------------------------------- */}
 			<Modal />

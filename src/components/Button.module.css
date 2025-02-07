@@ -8,8 +8,8 @@
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.5);
   /* text style */
   color: #fff;
-  font-family: sans-serif;
   text-decoration: none;
+  letter-spacing: 1px;
   text-shadow: 2px 2px 1px #333,
     -1px -1px 0 #333,
     1px -1px 0 #333,
@@ -42,7 +42,6 @@
 
 .selected {
   border-color: #93c7d2;
-  /* border-color: #DFCDE5; */
   color: #fff;
 }
 

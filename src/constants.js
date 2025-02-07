@@ -1,3 +1,4 @@
+export const siteTitle = 'Memory Game'
 export const levels = [
 	{ countCards: 6, level: 'easy' },
 	{ countCards: 8, level: 'middle' },

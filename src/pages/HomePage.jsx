@@ -1,11 +1,12 @@
 import cn from 'clsx'
 import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button.jsx'
 import stylesButton from '../components/Button.module.css'
 import { Field } from '../components/Field.jsx'
 import { Modal } from '../components/modal/Modal.jsx'
-import { avatarOptions } from '../constants.js'
+import { avatarOptions, siteTitle } from '../constants.js'
 import { useUserStore } from '../store/userStore.jsx'
 import styles from './HomePage.module.css'
 
@@ -50,69 +51,74 @@ export function HomePage() {
 	}
 
 	return (
-		<div className={styles.homePage}>
-			{/* ---------------------------------- Modal --------------------------------- */}
-			<Modal />
-			{allUsers.length > 0 && (
-				<>
-					<h1 className='textCenter'>Exist players:</h1>
-					<section className={styles.buttonsContainer}>
-						{allUsers.map(user => (
+		<>
+			<Helmet>
+				<title>Home | {siteTitle}</title>
+			</Helmet>
+			<div className={styles.homePage}>
+				{/* ---------------------------------- Modal --------------------------------- */}
+				<Modal />
+				{allUsers.length > 0 && (
+					<>
+						<h1 className='textCenter'>Exist players:</h1>
+						<section className={styles.buttonsContainer}>
+							{allUsers.map(user => (
+								<Button
+									key={user.userName}
+									handler={() => selectExistUser(user)}
+									className={cn(`flex flexCenter`, {
+										[`${stylesButton.selected}`]: user.userName === currentUser?.userName
+									})}
+								>
+									<span>{user.icon}</span>
+									<span>{user.userName}</span>
+								</Button>
+							))}
+						</section>
+					</>
+				)}
+
+				<Link
+					className={styles.cup}
+					to={'/game/rating'}
+					title='Best score'
+				>
+					<img
+						src='/cup.svg'
+						alt='vinner cup'
+					/>
+				</Link>
+
+				<h2 className='textCenter'> Create new player:</h2>
+				<section className={styles.newUserContainer}>
+					<Field
+						label='Enter your name'
+						placeholder='Enter your name'
+						name='user-name'
+						value={newName}
+						onChange={e => {
+							setNewName(e.target.value)
+						}}
+						onKeyDown={handleKeyDown}
+					/>
+					<div>Choose your avatar:</div>
+					<div className={styles.buttonsContainer}>
+						{avatarOptions.slice(-5).map(emoji => (
 							<Button
-								key={user.userName}
-								handler={() => selectExistUser(user)}
-								className={cn(`flex flexCenter`, {
-									[`${stylesButton.selected}`]: user.userName === currentUser?.userName
+								key={emoji}
+								className={cn(stylesButton.avatarButtons, {
+									[`${stylesButton.selected}`]: newAvatar === emoji
 								})}
+								handler={() => selectNewAvatar(emoji)}
 							>
-								<span>{user.icon}</span>
-								<span>{user.userName}</span>
+								{emoji}
 							</Button>
 						))}
-					</section>
-				</>
-			)}
+					</div>
+				</section>
 
-			<Link
-				className={styles.cup}
-				to={'/game/rating'}
-				title='Best score'
-			>
-				<img
-					src='/cup.svg'
-					alt='vinner cup'
-				/>
-			</Link>
-
-			<h2 className='textCenter'> Create new player:</h2>
-			<section className={styles.newUserContainer}>
-				<Field
-					label='Enter your name'
-					placeholder='Enter your name'
-					name='user-name'
-					value={newName}
-					onChange={e => {
-						setNewName(e.target.value)
-					}}
-					onKeyDown={handleKeyDown}
-				/>
-				<div>Choose your avatar:</div>
-				<div className={styles.buttonsContainer}>
-					{avatarOptions.slice(-5).map(emoji => (
-						<Button
-							key={emoji}
-							className={cn(stylesButton.avatarButtons, {
-								[`${stylesButton.selected}`]: newAvatar === emoji
-							})}
-							handler={() => selectNewAvatar(emoji)}
-						>
-							{emoji}
-						</Button>
-					))}
-				</div>
-			</section>
-
-			<Button handler={() => createNewUser(newName, newAvatar)}>Save</Button>
-		</div>
+				<Button handler={() => createNewUser(newName, newAvatar)}>Save</Button>
+			</div>
+		</>
 	)
 }
