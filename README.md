@@ -17,7 +17,8 @@ Create an accessible, interactive memory game using React.
 **Score and Ranking System:**  
 🔹 A timer and moves counter are used to track performance.  
 🔹 The game tracks the best results first based on number of moves and then on time used to finish
-game. 🔹 A ranking system displays the highest score for each level.
+game.  
+🔹 A ranking system displays the highest score for each level.
 
 **[Program flow .excalidraw file](https://excalidraw.com/#json=PkRrgr1gOpsz-5kqRSaV-,zhjlJ0M2SoKqgAYytcwtLQ)**
 
