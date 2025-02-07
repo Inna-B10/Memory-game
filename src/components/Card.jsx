@@ -31,7 +31,7 @@ export function Card({ card, turnCard, matchedCards, selectedCards, isGameOn }) 
 					whileHover={!isMatched && !isSelected ? { scale: 1.05 } : ''}
 				>
 					<img
-						src='/back.png'
+						src='/back.webp'
 						alt='Back of card'
 					/>
 				</m.div>

@@ -25,7 +25,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/bg.png");
+  background-image: url("/bg.webp");
   background-size: cover;
   font-size: 1rem;
 }
@@ -36,28 +36,12 @@ body {
   padding: 5px;
 
   border-radius: 1.5rem;
-  /* background-color: rgba(255, 255, 255, 0.7); */
-  /* background-color: rgba(116, 187, 229, 0.4); */
-  /* background-color: rgba(230, 205, 242, 0.4); */
-  /* background-color: rgba(169, 134, 219, 0.8); */
-  /* background-color: rgba(255, 255, 0, 0.2); */
   background-color: rgba(153, 51, 204, 0.4);
   border: 1px solid rgba(153, 51, 204, 0.8);
 }
 
 main {
-  /* background-image: url("./bg-small.png");
-  background-size: 110% 110%; 
-  background-position: center;*/
-  /* border: 1px solid rgba(153, 51, 204, 0.5); */
-  /* background-color: rgba(153, 51, 204, 0.5); */
-  /* background-color: rgba(147, 199, 210, 0.7); */
-  /* background-color: rgba(116, 187, 229, 0.7); */
-  /* background-color: rgba(253, 244, 195, 0.8); */
-  /* background-color: rgba(255, 255, 0, 0.2); */
   background-color: rgba(255, 255, 255, 0.8);
-  /* background-color: rgba(230, 205, 242, 0.4); */
-  /* background-color: rgba(169, 134, 219, 0.8); */
   box-shadow: 2px 2px 8px 1px rgba(153, 51, 204, 0.8);
   border-radius: 1.5rem;
   padding: 0.5rem;

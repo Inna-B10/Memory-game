@@ -4,9 +4,11 @@ import { GetImages } from '../../api/GetImages'
 import { Button } from '../../components/Button'
 import stylesButton from '../../components/Button.module.css'
 import { Card } from '../../components/Card'
+import Loader from '../../components/Loader'
 import { Timer } from '../../components/Timer'
 import { Modal } from '../../components/modal/Modal'
 import { ConfirmExit, EndGame } from '../../components/modal/ModalContent'
+import { levels } from '../../constants'
 import { useCardSelection } from '../../hooks/useCardSelection'
 import { useGameCompletion } from '../../hooks/useGameCompletion'
 import { useGameStore } from '../../store/gameStore'
@@ -34,8 +36,7 @@ export function GamePage() {
 
 	/* ------------------------------ Chosen Level ------------------------------ */
 	const { countCards = 6 } = useLocation().state || {}
-	const levels = { 6: 'easy', 8: 'middle', 10: 'hard', 15: 'expert' }
-	const level = levels[countCards] || 'easy'
+	const level = levels.find(l => l.countCards === countCards)?.level || 'easy'
 
 	/* ------------------------------- Load Images ------------------------------ */
 	const fetchImages = useCallback(async () => {
@@ -100,8 +101,12 @@ export function GamePage() {
 		currentUser
 	})
 
+	if (loading) {
+		return <Loader />
+	}
+
 	/* -------------------------- If No Images Fetched -------------------------- */
-	if (error || (!loading && !error && cards.length === 0)) {
+	if (error || cards.length === 0) {
 		return (
 			<section className='errorMessage'>
 				<p>{error ? error : 'No cards found!'}</p>
@@ -112,7 +117,6 @@ export function GamePage() {
 
 	return (
 		<>
-			{loading && <p>Loading...</p>}
 			<div className={styles.userNameContainer}>
 				<Button
 					handler={() => {
@@ -136,7 +140,7 @@ export function GamePage() {
 			</div>
 			<div className={`${styles.grid} ${styles[getGridClass(cards.length)]}`}>
 				{loading ? (
-					<p>Loading...</p>
+					<Loader />
 				) : (
 					cards.map(card => (
 						<Card
