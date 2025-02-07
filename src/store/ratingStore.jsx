@@ -1,7 +1,13 @@
 import { create } from 'zustand'
+import { levels } from '../constants'
 import { useUserStore } from './userStore'
 
+export const levelOrder = levels.map(row => row.level)
+
 export const useRatingStore = create(set => ({
+	sortedRatings: {},
+
+	/* ---------------------- Get Rating From LocalStorage ---------------------- */
 	rating: JSON.parse(localStorage.getItem('ratingMG')) || {},
 
 	/* ------------------------------ Update Rating ----------------------------- */
@@ -38,7 +44,9 @@ export const useRatingStore = create(set => ({
 			return state
 		})
 	},
+
 	/* --------------------------- Delete From Rating --------------------------- */
+	//in case user was deleted
 	deleteFromRating: (icon, name) => {
 		set(state => {
 			const updatedRating = Object.fromEntries(
@@ -48,6 +56,7 @@ export const useRatingStore = create(set => ({
 			return { rating: updatedRating }
 		})
 	},
+
 	/* ------------------------------ Reset Rating ------------------------------ */
 	resetRating: () => {
 		set(() => {
@@ -63,6 +72,23 @@ export const useRatingStore = create(set => ({
 			localStorage.setItem('memoryGame', JSON.stringify(allUsers))
 
 			return { allUsers: allUsers, rating: null }
+		})
+	},
+
+	/* ------------------------------- Sort Rating ------------------------------ */
+	//from easy to expert
+
+	getSortedRatings: () => {
+		set(state => {
+			const sorted = {}
+
+			levelOrder.forEach(level => {
+				if (state.rating[level]) {
+					sorted[level] = state.rating[level]
+				}
+			})
+
+			return { sortedRatings: sorted }
 		})
 	}
 }))

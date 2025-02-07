@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { RatingRow } from '../../../components/RatingRow'
@@ -8,9 +9,14 @@ import { useRatingStore } from '../../../store/ratingStore'
 import styles from './RatingPage.module.css'
 
 export function RatingPage() {
-	const { rating } = useRatingStore()
+	const { sortedRatings, getSortedRatings } = useRatingStore()
 	const { showModal, closeModal } = useModalStore()
 	const navigate = useNavigate()
+
+	/* ---------------------------- Get Sorted Rating --------------------------- */
+	useEffect(() => {
+		getSortedRatings()
+	}, [getSortedRatings])
 
 	/* ---------------------------------- Reset --------------------------------- */
 	const resetRatingMG = () => {
@@ -27,7 +33,7 @@ export function RatingPage() {
 			<h1 className='textCenter'>Best Results:</h1>
 			{/* ---------------------------------- Modal --------------------------------- */}
 			<Modal />
-			{rating && (
+			{sortedRatings && (
 				<div className={styles.ratingContainer}>
 					<span className={`${styles.titleColRow} ${styles.borderBottom}`}>Level</span>
 					<span className={`${styles.titleColRow} ${styles.borderLeft} ${styles.borderBottom}`}>
@@ -40,7 +46,7 @@ export function RatingPage() {
 						Moves
 					</span>
 
-					{Object.entries(rating).map(([level, data]) => (
+					{Object.entries(sortedRatings).map(([level, data]) => (
 						<RatingRow
 							key={level}
 							level={level}
