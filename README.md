@@ -4,7 +4,7 @@
 
 Create an accessible, interactive memory game using React.
 
-[<img src="preview.png" height="250" align="right"/>](preview.png)
+[<img src="preview.png" height="250" align="right" style="margin-left:20px" />](preview.png)
 
 ### 💎 Features:
 
@@ -30,17 +30,19 @@ Create an accessible, interactive memory game using React.
 
 ### 🧩 Tech Stack
 
-![react](https://img.shields.io/badge/react_18.3.1-424242?&logo=react&logoSize=auto&logoColor=61DAFB)
-![react-dom](https://img.shields.io/badge/react--dom_18.3.1-424242?&logo=react&logoSize=auto&logoColor=61DAFB)
-![react-router-dom](https://img.shields.io/badge/react--router--dom_7.1.3-424242?&logo=react-router&logoSize=auto&logoColor=CA4245)
-![vite](https://img.shields.io/badge/vite_6.0.5-424242?&logo=vite&logoSize=auto&logoColor=646CFF)
-![zustand](https://img.shields.io/badge/zustand_5.0.3-424242?)
-![clsx](https://img.shields.io/badge/clsx_2.1.1-424242?)
-![framer-motion](https://img.shields.io/badge/framer--motion_12.0.0-424242?)
-![react-helmet-async](https://img.shields.io/badge/react--helmet--async_2.0.5-424242?)
+![React](https://img.shields.io/badge/React_18.3.1-424242?logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite_6.0.5-424242?logo=vite&logoColor=646CFF)
+![react-dom](https://img.shields.io/badge/react--dom_18.3.1-424242?logo=react&logoColor=61DAFB)
+![react-router-dom](https://img.shields.io/badge/react--router--dom_7.1.3-424242?logo=reactrouter&logoColor=CA4245)
+![zustand](https://img.shields.io/badge/zustand_5.0.3-424242)
+![framer-motion](https://img.shields.io/badge/framer--motion_12.0.0-424242?logo=framer)
+![react-helmet-async](https://img.shields.io/badge/react--helmet--async_2.0.5-424242)
+![clsx](https://img.shields.io/badge/clsx_2.1.1-424242)
+
+<!-- end:tech-stack -->
 
 <details style="border:1px solid #d4d4d4; border-radius:2px; padding:1rem;">
-<summary><h4 style="display:inline; padding-left:6px;">Dependencies:</h4></summary>
+<summary><h4 style="display:inline; padding-left:6px;">🗃 Dependencies</h4></summary>
 
 ```bash
 @trivago/prettier-plugin-sort-imports prettier
@@ -54,16 +56,14 @@ npm install react-helmet-async
 
 </details>
 
-<br />
-
 ---
 
-### ToDo:
+### 📋 TODO:
 
 - [ ] ? project structure
 
 <details style="border:1px solid #d4d4d4; border-radius:2px; padding:1rem;">
-<summary><h4 style="display:inline; padding-left:6px;">✅ Done:</h4></summary>
+<summary><h4 style="display:inline; padding-left:6px;">✅ Done</h4></summary>
 
 - [x] Capital letter on Rating Page for level's name
 - [x] icons: emoji+cup
